@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfv10u1jup6ra"]
+
+[ext_resource type="PackedScene" uid="uid://dqlh4jb2kc332" path="res://Prefabs/battler_base.tscn" id="1_6y344"]
+[ext_resource type="Script" path="res://Scripts/game.gd" id="1_r2xw5"]
+[ext_resource type="PackedScene" uid="uid://bvd8vqukbo8s2" path="res://Prefabs/tree.tscn" id="3_f25ch"]
+[ext_resource type="Script" path="res://Scripts/Camera.gd" id="4_ikipi"]
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_r2xw5")
+
+[node name="AllUnits" type="Node2D" parent="."]
+y_sort_enabled = true
+position = Vector2(607, 355)
+
+[node name="BattlerBase" parent="AllUnits" instance=ExtResource("1_6y344")]
+position = Vector2(-228, -122)
+tribe = "AI"
+
+[node name="BattlerBase2" parent="AllUnits" instance=ExtResource("1_6y344")]
+position = Vector2(230, 21)
+tribe = "Player"
+
+[node name="BattlerBase3" parent="AllUnits" instance=ExtResource("1_6y344")]
+position = Vector2(-194, -143)
+tribe = "AI"
+
+[node name="BattlerBase4" parent="AllUnits" instance=ExtResource("1_6y344")]
+position = Vector2(264, 0)
+tribe = "Player"
+
+[node name="BattlerBase5" parent="AllUnits" instance=ExtResource("1_6y344")]
+position = Vector2(-238, -60)
+tribe = "AI"
+
+[node name="BattlerBase6" parent="AllUnits" instance=ExtResource("1_6y344")]
+position = Vector2(220, 83)
+tribe = "Player"
+
+[node name="Objects" type="Node2D" parent="."]
+y_sort_enabled = true
+position = Vector2(607, 355)
+
+[node name="Tree" parent="Objects" instance=ExtResource("3_f25ch")]
+position = Vector2(-90, -87)
+
+[node name="Tree6" parent="Objects" instance=ExtResource("3_f25ch")]
+position = Vector2(210, -104)
+
+[node name="Tree2" parent="Objects" instance=ExtResource("3_f25ch")]
+position = Vector2(108, -41)
+
+[node name="Tree7" parent="Objects" instance=ExtResource("3_f25ch")]
+position = Vector2(179, 60)
+
+[node name="Tree3" parent="Objects" instance=ExtResource("3_f25ch")]
+position = Vector2(-223, 44)
+
+[node name="Tree4" parent="Objects" instance=ExtResource("3_f25ch")]
+position = Vector2(-204, -69)
+
+[node name="Tree5" parent="Objects" instance=ExtResource("3_f25ch")]
+position = Vector2(9, 85)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(608, 354)
+zoom = Vector2(2, 2)
+script = ExtResource("4_ikipi")
+
+[connection signal="child_entered_tree" from="AllUnits" to="." method="_on_all_units_child_entered_tree"]
+[connection signal="child_exiting_tree" from="AllUnits" to="." method="_on_all_units_child_exiting_tree"]

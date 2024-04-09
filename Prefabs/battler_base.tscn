@@ -1,0 +1,76 @@
+[gd_scene load_steps=6 format=3 uid="uid://dqlh4jb2kc332"]
+
+[ext_resource type="Script" path="res://Scripts/battler_base.gd" id="1_ferup"]
+[ext_resource type="SpriteFrames" uid="uid://b88rlypka6lis" path="res://SpriteFrames/OrcSpriteFrames.tres" id="2_hqg0t"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pkavw"]
+radius = 4.0
+height = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u2l0i"]
+radius = 4.12311
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rwmsu"]
+radius = 8.0
+height = 26.0
+
+[node name="BattlerBase" type="CharacterBody2D"]
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_ferup")
+
+[node name="AnimatedSpriteShadow2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.372549)
+position = Vector2(6, 19)
+scale = Vector2(1.1, -1.1)
+skew = -0.349066
+sprite_frames = ExtResource("2_hqg0t")
+animation = &"attack"
+autoplay = "idle"
+frame = 5
+frame_progress = 1.0
+
+[node name="UnitPivot" type="Node2D" parent="."]
+
+[node name="AttackArea" type="Area2D" parent="UnitPivot"]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UnitPivot/AttackArea"]
+position = Vector2(8, -8)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_pkavw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UnitPivot"]
+position = Vector2(-1, -14)
+sprite_frames = ExtResource("2_hqg0t")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.681156
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_u2l0i")
+
+[node name="SelectionArea" type="Area2D" parent="." groups=["Unit"]]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SelectionArea"]
+visible = false
+position = Vector2(0, -8)
+shape = SubResource("CapsuleShape2D_rwmsu")
+
+[node name="SurroundTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AttackDelayTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 0)
+
+[connection signal="area_entered" from="UnitPivot/AttackArea" to="." method="_on_attack_area_area_entered"]
+[connection signal="animation_changed" from="UnitPivot/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
+[connection signal="animation_finished" from="UnitPivot/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="input_event" from="SelectionArea" to="." method="_on_selection_area_input_event"]
+[connection signal="timeout" from="SurroundTimer" to="." method="_on_surround_timer_timeout"]
+[connection signal="timeout" from="AttackDelayTimer" to="." method="_on_attack_delay_timer_timeout"]

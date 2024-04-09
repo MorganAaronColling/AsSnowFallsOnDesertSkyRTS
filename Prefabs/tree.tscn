@@ -1,0 +1,107 @@
+[gd_scene load_steps=15 format=3 uid="uid://bvd8vqukbo8s2"]
+
+[ext_resource type="Script" path="res://Scripts/tree.gd" id="1_ffwcu"]
+[ext_resource type="Texture2D" uid="uid://bboislqnl7hdf" path="res://ObjectSprites/tree2b.png" id="1_wlnrl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ryth8"]
+atlas = ExtResource("1_wlnrl")
+region = Rect2(0, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eyy0v"]
+atlas = ExtResource("1_wlnrl")
+region = Rect2(64, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ommu"]
+atlas = ExtResource("1_wlnrl")
+region = Rect2(128, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32bsp"]
+atlas = ExtResource("1_wlnrl")
+region = Rect2(192, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_orv1e"]
+atlas = ExtResource("1_wlnrl")
+region = Rect2(256, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1heg8"]
+atlas = ExtResource("1_wlnrl")
+region = Rect2(320, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrtcw"]
+atlas = ExtResource("1_wlnrl")
+region = Rect2(384, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8p00h"]
+atlas = ExtResource("1_wlnrl")
+region = Rect2(448, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q51v5"]
+atlas = ExtResource("1_wlnrl")
+region = Rect2(512, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxxp3"]
+atlas = ExtResource("1_wlnrl")
+region = Rect2(576, 0, 64, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_14aob"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ryth8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eyy0v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ommu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32bsp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_orv1e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1heg8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hrtcw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8p00h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q51v5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxxp3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_12fg5"]
+radius = 7.07107
+
+[node name="Tree" type="StaticBody2D"]
+script = ExtResource("1_ffwcu")
+
+[node name="AnimatedSprite2DShadow" type="AnimatedSprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.372549)
+position = Vector2(6, 18)
+scale = Vector2(1.1, -1.1)
+skew = -0.349066
+sprite_frames = SubResource("SpriteFrames_14aob")
+frame_progress = 0.538621
+offset = Vector2(0, -20)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -6)
+sprite_frames = SubResource("SpriteFrames_14aob")
+frame_progress = 0.0946354
+offset = Vector2(0, -20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 1)
+shape = SubResource("CircleShape2D_12fg5")

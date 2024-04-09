@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://dqlh4jb2kc332"]
+
+[ext_resource type="Script" path="res://Scripts/battler_base.gd" id="1_ferup"]
+[ext_resource type="SpriteFrames" uid="uid://67bmf78y35wf" path="res://SpriteFrames/KnightSpriteFrames.tres" id="2_ivb80"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pkavw"]
+radius = 7.0
+height = 28.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u2l0i"]
+radius = 5.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rwmsu"]
+radius = 9.0
+height = 32.0
+
+[node name="BattlerBase" type="CharacterBody2D"]
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_ferup")
+
+[node name="UnitPivot" type="Node2D" parent="."]
+
+[node name="AttackArea" type="Area2D" parent="UnitPivot"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UnitPivot/AttackArea"]
+position = Vector2(14, -10)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_pkavw")
+
+[node name="AnimatedSpriteShadow2D" type="AnimatedSprite2D" parent="UnitPivot"]
+modulate = Color(0, 0, 0, 0.372549)
+position = Vector2(8, 19)
+scale = Vector2(1.1, -1.1)
+skew = -0.174533
+sprite_frames = ExtResource("2_ivb80")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UnitPivot"]
+position = Vector2(4, -14)
+sprite_frames = ExtResource("2_ivb80")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_u2l0i")
+
+[node name="SelectionArea" type="Area2D" parent="."]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SelectionArea"]
+visible = false
+position = Vector2(0, -8)
+shape = SubResource("CapsuleShape2D_rwmsu")
+
+[connection signal="animation_changed" from="UnitPivot/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
+[connection signal="input_event" from="SelectionArea" to="." method="_on_selection_area_input_event"]
