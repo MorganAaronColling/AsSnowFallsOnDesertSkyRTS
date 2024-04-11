@@ -1,11 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://dqlh4jb2kc332"]
+[gd_scene load_steps=7 format=3 uid="uid://chhcayn5g2gyx"]
 
-[ext_resource type="Script" path="res://Scripts/battler_base.gd" id="1_ferup"]
-[ext_resource type="SpriteFrames" uid="uid://b88rlypka6lis" path="res://SpriteFrames/OrcSpriteFrames.tres" id="2_hqg0t"]
+[ext_resource type="Script" path="res://Scripts/BattlerClass.gd" id="1_3s2it"]
+[ext_resource type="SpriteFrames" uid="uid://b88rlypka6lis" path="res://SpriteFrames/OrcSpriteFrames.tres" id="2_r7jml"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pkavw"]
 radius = 4.0
 height = 16.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yq2ux"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 10.0
+spread = 70.0
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.5
+scale_max = 2.0
+color = Color(0.654902, 0.160784, 0.25098, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u2l0i"]
 radius = 4.12311
@@ -14,21 +26,20 @@ radius = 4.12311
 radius = 8.0
 height = 26.0
 
-[node name="BattlerBase" type="CharacterBody2D"]
+[node name="OrcV1-" type="CharacterBody2D"]
 motion_mode = 1
 wall_min_slide_angle = 0.0
-script = ExtResource("1_ferup")
+script = ExtResource("1_3s2it")
+tribe = "AI"
 
 [node name="AnimatedSpriteShadow2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0, 0, 0, 0.372549)
 position = Vector2(6, 19)
 scale = Vector2(1.1, -1.1)
 skew = -0.349066
-sprite_frames = ExtResource("2_hqg0t")
+sprite_frames = ExtResource("2_r7jml")
 animation = &"attack"
 autoplay = "idle"
-frame = 5
-frame_progress = 1.0
 
 [node name="UnitPivot" type="Node2D" parent="."]
 
@@ -42,16 +53,24 @@ shape = SubResource("CapsuleShape2D_pkavw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UnitPivot"]
 position = Vector2(-1, -14)
-sprite_frames = ExtResource("2_hqg0t")
+sprite_frames = ExtResource("2_r7jml")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.681156
+
+[node name="BloodEffect" type="GPUParticles2D" parent="UnitPivot"]
+position = Vector2(0, -5)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_yq2ux")
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("CircleShape2D_u2l0i")
 
 [node name="SelectionArea" type="Area2D" parent="." groups=["Unit"]]
+process_mode = 3
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SelectionArea"]

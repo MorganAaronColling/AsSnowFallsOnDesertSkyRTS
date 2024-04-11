@@ -1,0 +1,53 @@
+[gd_resource type="JSON" format=3 uid="uid://di2xw7c62ctb3"]
+
+[resource]
+data = {
+"ArcherV1": {
+"acceleration": 90.0,
+"attack_damage": 3.0,
+"cleave": false,
+"friction": 2.0,
+"max_health": 10.0,
+"max_speed": 275.0
+},
+"ArcherV2": {
+"acceleration": 90.0,
+"attack_damage": 2.0,
+"cleave": false,
+"friction": 2.0,
+"max_health": 15.0,
+"max_speed": 275.0
+},
+"KnightV1": {
+"acceleration": 100.0,
+"attack_damage": 2.0,
+"cleave": false,
+"friction": 2.0,
+"max_health": 30.0,
+"max_speed": 300.0
+},
+"KnightV2": {
+"acceleration": 100.0,
+"attack_damage": 4.0,
+"cleave": true,
+"friction": 2.0,
+"max_health": 30.0,
+"max_speed": 300.0
+},
+"OrcV1": {
+"acceleration": 80.0,
+"attack_damage": 4.0,
+"cleave": false,
+"friction": 2.0,
+"max_health": 15.0,
+"max_speed": 250.0
+},
+"OrcV2": {
+"acceleration": 80.0,
+"attack_damage": 4.0,
+"cleave": true,
+"friction": 2.0,
+"max_health": 25.0,
+"max_speed": 250.0
+}
+}

@@ -1,71 +1,208 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfv10u1jup6ra"]
+[gd_scene load_steps=29 format=3 uid="uid://cfv10u1jup6ra"]
 
-[ext_resource type="PackedScene" uid="uid://dqlh4jb2kc332" path="res://Prefabs/battler_base.tscn" id="1_6y344"]
+[ext_resource type="PackedScene" uid="uid://dqlh4jb2kc332" path="res://Prefabs/KnightV1.tscn" id="1_6y344"]
 [ext_resource type="Script" path="res://Scripts/game.gd" id="1_r2xw5"]
-[ext_resource type="PackedScene" uid="uid://bvd8vqukbo8s2" path="res://Prefabs/tree.tscn" id="3_f25ch"]
+[ext_resource type="SpriteFrames" uid="uid://b88rlypka6lis" path="res://SpriteFrames/OrcSpriteFrames.tres" id="2_pbfx5"]
+[ext_resource type="Texture2D" uid="uid://bjujlr7kuoyhl" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)1.png" id="2_tgpaq"]
+[ext_resource type="Texture2D" uid="uid://rpl5xnymwp0y" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)2.png" id="3_ppo74"]
+[ext_resource type="Texture2D" uid="uid://dik3c6loeyvwt" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)3.png" id="4_0c2wi"]
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="4_ikipi"]
+[ext_resource type="Texture2D" uid="uid://ca5w0b5yfu7lp" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)4.png" id="5_dumot"]
+[ext_resource type="Texture2D" uid="uid://ks5urtyx2kp8" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)5.png" id="6_kib3g"]
+[ext_resource type="Texture2D" uid="uid://ddaj5cf0wpkc5" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)6.png" id="7_j5v8v"]
+[ext_resource type="Texture2D" uid="uid://1835apy78j47" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)7.png" id="8_ch4xx"]
+[ext_resource type="Texture2D" uid="uid://bh6ele1dbbh8d" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)8.png" id="9_vsn5e"]
+[ext_resource type="Texture2D" uid="uid://dpckns4b480c2" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)9.png" id="10_ph2yt"]
+[ext_resource type="Texture2D" uid="uid://cf62nansbxhmu" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)10.png" id="11_mc1ml"]
+[ext_resource type="FontFile" uid="uid://bvmpqynvw34ac" path="res://GUI/joystix monospace.otf" id="13_6p50q"]
+[ext_resource type="Texture2D" uid="uid://cvmg0y5fhifc8" path="res://GUI/Pause.png" id="14_ocq0t"]
+[ext_resource type="Texture2D" uid="uid://5qbkpgqhq6nk" path="res://GUI/Chevron-Arrow-Right.png" id="15_2wmrp"]
+[ext_resource type="Texture2D" uid="uid://b57kial6jnqb2" path="res://GUI/Double-Chevron-Arrow-Right.png" id="15_3xfkp"]
+[ext_resource type="Texture2D" uid="uid://pj8tq45v65qn" path="res://GUI/Play.png" id="15_np5ne"]
+[ext_resource type="PackedScene" uid="uid://b23i36rxpgpe1" path="res://Prefabs/ArcherV2.tscn" id="18_pqpac"]
+[ext_resource type="PackedScene" uid="uid://b8712n4btfg60" path="res://Prefabs/ArcherV1.tscn" id="21_0nbv3"]
+[ext_resource type="PackedScene" uid="uid://chhcayn5g2gyx" path="res://Prefabs/OrcV1.tscn" id="21_u2qe2"]
+[ext_resource type="PackedScene" uid="uid://b8sr1vt2ktntt" path="res://Prefabs/OrcV2.tscn" id="22_1u7w6"]
+[ext_resource type="PackedScene" uid="uid://batydtiptjh1q" path="res://Prefabs/KnightV2.tscn" id="23_p1egr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h6pmd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tgpaq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ppo74")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_0c2wi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dumot")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_kib3g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_j5v8v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ch4xx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_vsn5e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ph2yt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_mc1ml")
+}],
+"loop": false,
+"name": &"break",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tgpaq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yw2q6"]
+font = ExtResource("13_6p50q")
+font_color = Color(0.878431, 0.207843, 0.376471, 1)
+outline_size = 7
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c13lo"]
+size = Vector2(1312.5, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bnf87"]
+size = Vector2(758, 20)
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_r2xw5")
 
+[node name="GUI" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="SelectedUnit" type="AnimatedSprite2D" parent="GUI"]
+position = Vector2(63, 52)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("2_pbfx5")
+animation = &"attack"
+
+[node name="Portrait" type="AnimatedSprite2D" parent="GUI"]
+position = Vector2(64, 63)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_h6pmd")
+autoplay = "default"
+
+[node name="Health" type="Label" parent="GUI"]
+visible = false
+offset_left = 28.0
+offset_top = 109.0
+offset_right = 95.0
+offset_bottom = 129.0
+text = "15/15"
+label_settings = SubResource("LabelSettings_yw2q6")
+
+[node name="PlayPause" type="TextureButton" parent="GUI"]
+offset_left = 1243.0
+offset_top = 7.0
+offset_right = 1271.0
+offset_bottom = 35.0
+toggle_mode = true
+texture_normal = ExtResource("14_ocq0t")
+texture_pressed = ExtResource("15_np5ne")
+stretch_mode = 5
+
+[node name="Speed" type="TextureButton" parent="GUI"]
+offset_left = 1245.0
+offset_top = 45.0
+offset_right = 1274.0
+offset_bottom = 73.0
+toggle_mode = true
+texture_normal = ExtResource("15_2wmrp")
+texture_pressed = ExtResource("15_3xfkp")
+stretch_mode = 5
+
 [node name="AllUnits" type="Node2D" parent="."]
 y_sort_enabled = true
 position = Vector2(607, 355)
 
-[node name="BattlerBase" parent="AllUnits" instance=ExtResource("1_6y344")]
-position = Vector2(-228, -122)
-tribe = "AI"
+[node name="OrcV1-" parent="AllUnits" instance=ExtResource("21_u2qe2")]
+position = Vector2(-390, -89)
 
-[node name="BattlerBase2" parent="AllUnits" instance=ExtResource("1_6y344")]
-position = Vector2(230, 21)
-tribe = "Player"
+[node name="OrcV1-2" parent="AllUnits" instance=ExtResource("21_u2qe2")]
+position = Vector2(-169, 75)
 
-[node name="BattlerBase3" parent="AllUnits" instance=ExtResource("1_6y344")]
-position = Vector2(-194, -143)
-tribe = "AI"
+[node name="KnightV1-" parent="AllUnits" instance=ExtResource("1_6y344")]
+position = Vector2(-333, -36)
 
-[node name="BattlerBase4" parent="AllUnits" instance=ExtResource("1_6y344")]
-position = Vector2(264, 0)
-tribe = "Player"
+[node name="ArcherV2-" parent="AllUnits" instance=ExtResource("18_pqpac")]
+position = Vector2(-284, -31)
 
-[node name="BattlerBase5" parent="AllUnits" instance=ExtResource("1_6y344")]
-position = Vector2(-238, -60)
-tribe = "AI"
+[node name="ArcherV1-" parent="AllUnits" instance=ExtResource("21_0nbv3")]
+position = Vector2(-310, 6)
 
-[node name="BattlerBase6" parent="AllUnits" instance=ExtResource("1_6y344")]
-position = Vector2(220, 83)
-tribe = "Player"
+[node name="OrcV2-" parent="AllUnits" instance=ExtResource("22_1u7w6")]
+position = Vector2(-190, 40)
+
+[node name="KnightV2-" parent="AllUnits" instance=ExtResource("23_p1egr")]
+position = Vector2(-258, 9)
 
 [node name="Objects" type="Node2D" parent="."]
+visible = false
 y_sort_enabled = true
 position = Vector2(607, 355)
 
-[node name="Tree" parent="Objects" instance=ExtResource("3_f25ch")]
-position = Vector2(-90, -87)
-
-[node name="Tree6" parent="Objects" instance=ExtResource("3_f25ch")]
-position = Vector2(210, -104)
-
-[node name="Tree2" parent="Objects" instance=ExtResource("3_f25ch")]
-position = Vector2(108, -41)
-
-[node name="Tree7" parent="Objects" instance=ExtResource("3_f25ch")]
-position = Vector2(179, 60)
-
-[node name="Tree3" parent="Objects" instance=ExtResource("3_f25ch")]
-position = Vector2(-223, 44)
-
-[node name="Tree4" parent="Objects" instance=ExtResource("3_f25ch")]
-position = Vector2(-204, -69)
-
-[node name="Tree5" parent="Objects" instance=ExtResource("3_f25ch")]
-position = Vector2(9, 85)
-
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(608, 354)
+process_mode = 3
+position = Vector2(337, 336)
 zoom = Vector2(2, 2)
+limit_left = 0
+limit_top = 0
+limit_right = 1275
+limit_bottom = 710
+position_smoothing_enabled = true
 script = ExtResource("4_ikipi")
 
+[node name="WorldBoundaryNorth" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaryNorth"]
+position = Vector2(637.5, 0)
+shape = SubResource("RectangleShape2D_c13lo")
+
+[node name="WorldBoundarySouth" type="StaticBody2D" parent="."]
+position = Vector2(0, 44)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundarySouth"]
+position = Vector2(642.75, 669)
+shape = SubResource("RectangleShape2D_c13lo")
+
+[node name="WorldBoundaryEast" type="StaticBody2D" parent="."]
+position = Vector2(1214, 53)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaryEast"]
+position = Vector2(70, 305)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_bnf87")
+
+[node name="WorldBoundaryWest" type="StaticBody2D" parent="."]
+position = Vector2(0, 44)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaryWest"]
+position = Vector2(-1.35942e-05, 311)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_bnf87")
+
+[connection signal="visibility_changed" from="GUI/Portrait" to="." method="_on_portrait_visibility_changed"]
+[connection signal="toggled" from="GUI/PlayPause" to="." method="_on_play_pause_toggled"]
+[connection signal="toggled" from="GUI/Speed" to="." method="_on_speed_toggled"]
 [connection signal="child_entered_tree" from="AllUnits" to="." method="_on_all_units_child_entered_tree"]
 [connection signal="child_exiting_tree" from="AllUnits" to="." method="_on_all_units_child_exiting_tree"]

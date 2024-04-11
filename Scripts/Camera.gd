@@ -1,7 +1,7 @@
 extends Camera2D
 
 # Camera speed
-var camera_speed = 400
+var camera_speed = 300
 
 # The amount to zoom in or out each time the mouse wheel is scrolled
 var zoom_amount = Vector2(0.05, 0.05)
@@ -10,7 +10,7 @@ func _input(event):
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-				if zoom.x > 1:
+				if zoom.x > 1.5:
 					zoom -= zoom_amount
 					position = get_screen_center_position()
 
