@@ -8,7 +8,8 @@ data = {
 "cleave": false,
 "friction": 2.0,
 "max_health": 10.0,
-"max_speed": 275.0
+"max_speed": 275.0,
+"ranged": true
 },
 "ArcherV2": {
 "acceleration": 90.0,
@@ -16,7 +17,17 @@ data = {
 "cleave": false,
 "friction": 2.0,
 "max_health": 15.0,
-"max_speed": 275.0
+"max_speed": 275.0,
+"ranged": true
+},
+"ArcherV3": {
+"acceleration": 90.0,
+"attack_damage": 2.0,
+"cleave": false,
+"friction": 2.0,
+"max_health": 10.0,
+"max_speed": 275.0,
+"ranged": true
 },
 "KnightV1": {
 "acceleration": 100.0,
@@ -24,7 +35,8 @@ data = {
 "cleave": false,
 "friction": 2.0,
 "max_health": 30.0,
-"max_speed": 300.0
+"max_speed": 300.0,
+"ranged": false
 },
 "KnightV2": {
 "acceleration": 100.0,
@@ -32,7 +44,8 @@ data = {
 "cleave": true,
 "friction": 2.0,
 "max_health": 30.0,
-"max_speed": 300.0
+"max_speed": 300.0,
+"ranged": false
 },
 "OrcV1": {
 "acceleration": 80.0,
@@ -40,7 +53,8 @@ data = {
 "cleave": false,
 "friction": 2.0,
 "max_health": 15.0,
-"max_speed": 250.0
+"max_speed": 250.0,
+"ranged": false
 },
 "OrcV2": {
 "acceleration": 80.0,
@@ -48,6 +62,7 @@ data = {
 "cleave": true,
 "friction": 2.0,
 "max_health": 25.0,
-"max_speed": 250.0
+"max_speed": 250.0,
+"ranged": false
 }
 }

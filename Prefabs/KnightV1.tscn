@@ -54,7 +54,7 @@ shape = SubResource("CapsuleShape2D_pkavw")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UnitPivot"]
 position = Vector2(-1, -14)
 sprite_frames = ExtResource("2_unkon")
-animation = &"idle"
+animation = &"fall"
 autoplay = "idle"
 
 [node name="BloodEffect" type="GPUParticles2D" parent="UnitPivot"]

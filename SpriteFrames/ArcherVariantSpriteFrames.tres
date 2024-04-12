@@ -79,7 +79,7 @@ animations = [{
 "texture": ExtResource("14_ikafo")
 }],
 "loop": false,
-"name": &"dead",
+"name": &"death",
 "speed": 8.0
 }, {
 "frames": [{

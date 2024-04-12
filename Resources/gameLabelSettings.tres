@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cyemgisqgwybl"]
+
+[ext_resource type="FontFile" uid="uid://bvmpqynvw34ac" path="res://GUI/joystix monospace.otf" id="1_3hrev"]
+
+[resource]
+font = ExtResource("1_3hrev")
+font_size = 32
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)

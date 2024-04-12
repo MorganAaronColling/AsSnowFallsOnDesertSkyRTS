@@ -14,6 +14,7 @@ var unitStats = preload('res://Resources/UnitStats.tres')
 @onready var GUIHealth = get_node('../../GUI/Health')
 @onready var GUIPortraitBackground = get_node('../../GUI/Portrait')
 @onready var BloodSplatter = $UnitPivot/BloodEffect
+@onready var Game = get_node('../../')
 
 # Stats
 var max_speed: int
@@ -21,6 +22,10 @@ var acceleration: int
 var friction: float
 var attack_damage: int
 var max_health: int
+var hurt_delay = 0.4
+var block_delay = 0.3
+var surround_timer_delay_melee = randf_range(0.5, 1)
+var surround_timer_delay_ranged = randf_range(0.25, 0.5)
 var health
 
 # Misc
@@ -29,10 +34,13 @@ var input_position: Vector2
 var surround_position: Vector2
 var selected: bool
 var selectionTween: Tween
+var pregameTween: Tween
 var attack_target: CharacterBody2D
+var dragged: bool = false
 
 # Abilities
 var cleave: bool = false
+var isRangedUnit: bool = false
 
 # ENUM
 enum {
@@ -59,45 +67,52 @@ func update_stats():
 	attack_damage = data.attack_damage
 	max_health = data.max_health
 	cleave = data.cleave
+	isRangedUnit = data.ranged
 	health = max_health
 	
 func _ready():
 	update_stats()
 	selectionTween = get_selection_tween()
+	pregameTween = get_pre_start_tween()
+	if tribe == 'AI':
+		pregameTween.play()
 	
 func _physics_process(delta):
-	match state:
-		IDLE:
-			if is_instance_valid(attack_target) and attack_target.state != DEAD:
-				state = MOVING
-			else:
-				var unitList = get_parent().get_parent().unitList
+	if Game.started:
+		match state:
+			IDLE:
+				if is_instance_valid(attack_target) and attack_target.state != DEAD:
+					enter_surround_state()
+				else:
+					var unitList = get_parent().get_parent().unitList
+					update_attack_target()
+			ATTACK:
+				deal_damage()
+			SURROUND:
 				update_attack_target()
-		ATTACK:
-			deal_damage()
-		SURROUND:
-			update_attack_target()
-			if is_instance_valid(attack_target) and attack_target.state != DEAD:
-				move_to_position(get_circle_position(attack_target.global_position, get_radius_range_circle_position()), delta)
-				set_facing_direction()
-			else:
-				state = IDLE
-		HURT:
-			pass
-		BLOCK:
-			pass
-		DEAD:
-			pass
-		CONTROLLED:
-			pass
-		MOVING:
-			update_attack_target()
-			if is_instance_valid(attack_target) and attack_target.state != DEAD:
-				move_to_position(attack_target.global_position, delta)
-				set_facing_direction()
-			else:
-				state = IDLE
-	apply_friction(delta)
+				if is_instance_valid(attack_target) and attack_target.state != DEAD:
+					move_to_position(get_circle_position(attack_target.global_position, get_radius_range_circle_position()), delta)
+					set_facing_direction()
+				else:
+					state = IDLE
+			HURT:
+				pass
+			BLOCK:
+				pass
+			DEAD:
+				pass
+			CONTROLLED:
+				pass
+			MOVING:
+				update_attack_target()
+				if is_instance_valid(attack_target) and attack_target.state != DEAD:
+					move_to_position(attack_target.global_position, delta)
+					set_facing_direction()
+				else:
+					state = IDLE
+		apply_friction(delta)
+	elif dragged:
+		global_position = get_global_mouse_position()
 	
 func get_radius_range_circle_position():
 	if self.is_in_group('Ranged'):
@@ -157,12 +172,31 @@ func _on_selection_area_input_event(viewport, event, shape_idx):
 			set_selected(true)
 		else:
 			set_selected(false)
+	elif event.is_action_pressed('right_click') and !Game.started and tribe == 'Player':
+		set_dragged(true)
+	elif event.is_action_released("right_click") and !Game.started and tribe == 'Player':
+		set_dragged(false)
+		
+func set_dragged(is_dragged):
+	dragged = is_dragged
+	if dragged:
+		BattlerAnimation.play('fall')
+	else:
+		BattlerAnimation.play('idle')
 		
 func get_selection_tween():
 	var tween = create_tween().set_loops()
 	tween.tween_property(BattlerAnimation, "modulate", Color(1.5, 1.5, 1.2, 0.5), 0.5)
 	tween.tween_interval(0.1)
 	tween.tween_property(BattlerAnimation, "modulate", Color(1.5, 1.5, 1.2, 1), 0.5)
+	tween.pause()
+	return tween
+	
+func get_pre_start_tween():
+	var tween = create_tween().set_loops()
+	tween.tween_property(BattlerAnimation, "modulate", Color(0.8, 0.8, 0.8, 0.5), 0.5)
+	tween.tween_interval(0.1)
+	tween.tween_property(BattlerAnimation, "modulate", Color(0.8, 0.8, 0.8, 1), 0.5)
 	tween.pause()
 	return tween
 	
@@ -189,12 +223,10 @@ func get_closest_target(target_list):
 
 func _on_attack_area_area_entered(area):
 	var parent = area.get_parent()
-	if area.is_in_group('Unit') and parent != self and parent.tribe != tribe and state != SURROUND:
+	if area.is_in_group('Unit') and parent != self and parent.tribe != tribe and state != SURROUND and Game.started:
 		attackDelayTimer.start(randf_range(0, 0.25))
 		
 func _on_animated_sprite_2d_animation_finished():
-	var hurt_delay = 0.4
-	var block_delay = 0.3
 	if BattlerAnimation.animation == 'attack':
 		enter_surround_state()
 		attackArea.monitoring = false
@@ -212,8 +244,7 @@ func _on_animated_sprite_2d_animation_finished():
 		queue_free()
 		
 func enter_surround_state():
-	var surround_timer_delay_melee = randf_range(1, 2)
-	var surround_timer_delay_ranged = randf_range(0.5, 1)
+	attackArea.monitoring = false
 	state = SURROUND
 	if is_instance_valid(attack_target) and attack_target.is_in_group('Ranged'):
 		SurroundTimer.start(surround_timer_delay_ranged)
@@ -251,7 +282,7 @@ func deal_damage():
 func take_damage(damage, ranged):
 	var chance = randf()
 	if state != DEAD and state != HURT and state != BLOCK and !ranged:
-		if chance < 0.15:
+		if chance < 0.15 and !isRangedUnit:
 			state = BLOCK
 			BattlerAnimation.play("blocking")
 		else:
@@ -268,7 +299,7 @@ func take_damage(damage, ranged):
 				attackArea.monitoring = false
 				state = DEAD
 				BattlerAnimation.play("death")
-	elif ranged:
+	elif state != DEAD and state != HURT and state != BLOCK and ranged:
 		if chance < 0.20:
 			pass
 		else:
@@ -297,7 +328,7 @@ func update_attack_target():
 		unitList = unitList[0]
 	else:
 		unitList = unitList[1]
-	if unitList.is_empty() or (unitList.size() == 1 and !is_instance_valid(attack_target)):
+	if unitList.is_empty():
 		BattlerAnimation.play("idle")
 	else:
 		attack_target = get_closest_target(unitList)
@@ -314,3 +345,9 @@ func avoid_obstacles():
 			# Obstacle detected, adjust velocity to avoid
 			velocity = (velocity + Vector2.from_angle(angle).orthogonal()).normalized() * velocity.length()
 			break  # Only consider closest obstacle
+			
+func reset_health():
+	health = max_health
+	if selected:
+		GUIHealth.text = str(health) + '/' + str(max_health)
+

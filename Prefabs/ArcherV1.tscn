@@ -57,7 +57,7 @@ shape = SubResource("CircleShape2D_rhkgv")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UnitPivot"]
 position = Vector2(0, -15)
 sprite_frames = ExtResource("2_yqx6d")
-animation = &"walk"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="BloodEffect" type="GPUParticles2D" parent="UnitPivot"]

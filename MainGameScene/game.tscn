@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cfv10u1jup6ra"]
+[gd_scene load_steps=33 format=3 uid="uid://cfv10u1jup6ra"]
 
 [ext_resource type="PackedScene" uid="uid://dqlh4jb2kc332" path="res://Prefabs/KnightV1.tscn" id="1_6y344"]
 [ext_resource type="Script" path="res://Scripts/game.gd" id="1_r2xw5"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://rpl5xnymwp0y" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)2.png" id="3_ppo74"]
 [ext_resource type="Texture2D" uid="uid://dik3c6loeyvwt" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)3.png" id="4_0c2wi"]
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="4_ikipi"]
+[ext_resource type="Texture2D" uid="uid://cng1mkv7im4f0" path="res://UnitSprites/16x16 knight 1 v3.png" id="4_m3eit"]
+[ext_resource type="Script" path="res://Scripts/OptionClass.gd" id="5_20y6f"]
 [ext_resource type="Texture2D" uid="uid://ca5w0b5yfu7lp" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)4.png" id="5_dumot"]
 [ext_resource type="Texture2D" uid="uid://ks5urtyx2kp8" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)5.png" id="6_kib3g"]
 [ext_resource type="Texture2D" uid="uid://ddaj5cf0wpkc5" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)6.png" id="7_j5v8v"]
@@ -18,12 +20,17 @@
 [ext_resource type="Texture2D" uid="uid://cvmg0y5fhifc8" path="res://GUI/Pause.png" id="14_ocq0t"]
 [ext_resource type="Texture2D" uid="uid://5qbkpgqhq6nk" path="res://GUI/Chevron-Arrow-Right.png" id="15_2wmrp"]
 [ext_resource type="Texture2D" uid="uid://b57kial6jnqb2" path="res://GUI/Double-Chevron-Arrow-Right.png" id="15_3xfkp"]
+[ext_resource type="LabelSettings" uid="uid://cyemgisqgwybl" path="res://Resources/gameLabelSettings.tres" id="15_k43o7"]
 [ext_resource type="Texture2D" uid="uid://pj8tq45v65qn" path="res://GUI/Play.png" id="15_np5ne"]
 [ext_resource type="PackedScene" uid="uid://b23i36rxpgpe1" path="res://Prefabs/ArcherV2.tscn" id="18_pqpac"]
-[ext_resource type="PackedScene" uid="uid://b8712n4btfg60" path="res://Prefabs/ArcherV1.tscn" id="21_0nbv3"]
 [ext_resource type="PackedScene" uid="uid://chhcayn5g2gyx" path="res://Prefabs/OrcV1.tscn" id="21_u2qe2"]
 [ext_resource type="PackedScene" uid="uid://b8sr1vt2ktntt" path="res://Prefabs/OrcV2.tscn" id="22_1u7w6"]
-[ext_resource type="PackedScene" uid="uid://batydtiptjh1q" path="res://Prefabs/KnightV2.tscn" id="23_p1egr"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_jph56"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ba11o"]
+atlas = ExtResource("4_m3eit")
+region = Rect2(23.8369, 25.8239, 16.4994, 22.4826)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_h6pmd"]
 animations = [{
@@ -77,8 +84,11 @@ font_color = Color(0.878431, 0.207843, 0.376471, 1)
 outline_size = 7
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="Theme" id="Theme_6mbjk"]
+default_font = ExtResource("13_6p50q")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c13lo"]
-size = Vector2(1312.5, 20)
+size = Vector2(1312.5, 27)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bnf87"]
 size = Vector2(758, 20)
@@ -86,9 +96,66 @@ size = Vector2(758, 20)
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_r2xw5")
+orc1 = ExtResource("21_u2qe2")
+orc2 = ExtResource("22_1u7w6")
+knight1 = ExtResource("1_6y344")
 
 [node name="GUI" type="CanvasLayer" parent="."]
 process_mode = 3
+
+[node name="UpgradeControlNode" type="Control" parent="GUI"]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(12, 12)
+
+[node name="BlurBackground" type="TextureRect" parent="GUI/UpgradeControlNode"]
+modulate = Color(0.117647, 0.117647, 0.117647, 0.662745)
+layout_mode = 0
+offset_left = -59.1667
+offset_top = -32.0
+offset_right = 57.8333
+offset_bottom = 34.0
+texture = SubResource("CanvasTexture_jph56")
+
+[node name="UpgradeSelections" type="BoxContainer" parent="GUI/UpgradeControlNode"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -11.0
+offset_right = 28.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Option" type="TextureButton" parent="GUI/UpgradeControlNode/UpgradeSelections"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_ba11o")
+stretch_mode = 0
+script = ExtResource("5_20y6f")
+
+[node name="Option2" type="TextureButton" parent="GUI/UpgradeControlNode/UpgradeSelections"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_ba11o")
+stretch_mode = 0
+script = ExtResource("5_20y6f")
+
+[node name="Option3" type="TextureButton" parent="GUI/UpgradeControlNode/UpgradeSelections"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_ba11o")
+stretch_mode = 0
+script = ExtResource("5_20y6f")
 
 [node name="SelectedUnit" type="AnimatedSprite2D" parent="GUI"]
 position = Vector2(63, 52)
@@ -103,7 +170,6 @@ sprite_frames = SubResource("SpriteFrames_h6pmd")
 autoplay = "default"
 
 [node name="Health" type="Label" parent="GUI"]
-visible = false
 offset_left = 28.0
 offset_top = 109.0
 offset_right = 95.0
@@ -111,10 +177,26 @@ offset_bottom = 129.0
 text = "15/15"
 label_settings = SubResource("LabelSettings_yw2q6")
 
+[node name="RoundChange" type="Label" parent="GUI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -202.5
+offset_top = -200.5
+offset_right = 202.5
+offset_bottom = -161.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Round Complete!"
+label_settings = ExtResource("15_k43o7")
+horizontal_alignment = 1
+
 [node name="PlayPause" type="TextureButton" parent="GUI"]
-offset_left = 1243.0
+offset_left = 1206.0
 offset_top = 7.0
-offset_right = 1271.0
+offset_right = 1234.0
 offset_bottom = 35.0
 toggle_mode = true
 texture_normal = ExtResource("14_ocq0t")
@@ -122,39 +204,43 @@ texture_pressed = ExtResource("15_np5ne")
 stretch_mode = 5
 
 [node name="Speed" type="TextureButton" parent="GUI"]
-offset_left = 1245.0
-offset_top = 45.0
-offset_right = 1274.0
-offset_bottom = 73.0
+offset_left = 1244.0
+offset_top = 6.0
+offset_right = 1273.0
+offset_bottom = 34.0
 toggle_mode = true
 texture_normal = ExtResource("15_2wmrp")
 texture_pressed = ExtResource("15_3xfkp")
 stretch_mode = 5
 
+[node name="StartRound" type="Button" parent="GUI"]
+offset_left = 1145.0
+offset_top = 5.0
+offset_right = 1203.0
+offset_bottom = 37.0
+theme = SubResource("Theme_6mbjk")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 20
+text = "GO!"
+flat = true
+
 [node name="AllUnits" type="Node2D" parent="."]
 y_sort_enabled = true
-position = Vector2(607, 355)
-
-[node name="OrcV1-" parent="AllUnits" instance=ExtResource("21_u2qe2")]
-position = Vector2(-390, -89)
-
-[node name="OrcV1-2" parent="AllUnits" instance=ExtResource("21_u2qe2")]
-position = Vector2(-169, 75)
+position = Vector2(-3, 10)
 
 [node name="KnightV1-" parent="AllUnits" instance=ExtResource("1_6y344")]
-position = Vector2(-333, -36)
+position = Vector2(417, 262)
 
 [node name="ArcherV2-" parent="AllUnits" instance=ExtResource("18_pqpac")]
-position = Vector2(-284, -31)
+position = Vector2(394, 263)
 
-[node name="ArcherV1-" parent="AllUnits" instance=ExtResource("21_0nbv3")]
-position = Vector2(-310, 6)
+[node name="ArcherV2-2" parent="AllUnits" instance=ExtResource("18_pqpac")]
+position = Vector2(372, 278)
 
-[node name="OrcV2-" parent="AllUnits" instance=ExtResource("22_1u7w6")]
-position = Vector2(-190, 40)
-
-[node name="KnightV2-" parent="AllUnits" instance=ExtResource("23_p1egr")]
-position = Vector2(-258, 9)
+[node name="ArcherV2-3" parent="AllUnits" instance=ExtResource("18_pqpac")]
+position = Vector2(397, 297)
 
 [node name="Objects" type="Node2D" parent="."]
 visible = false
@@ -163,12 +249,12 @@ position = Vector2(607, 355)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_mode = 3
-position = Vector2(337, 336)
+position = Vector2(413, 272)
 zoom = Vector2(2, 2)
 limit_left = 0
 limit_top = 0
-limit_right = 1275
-limit_bottom = 710
+limit_right = 812
+limit_bottom = 555
 position_smoothing_enabled = true
 script = ExtResource("4_ikipi")
 
@@ -182,14 +268,14 @@ shape = SubResource("RectangleShape2D_c13lo")
 position = Vector2(0, 44)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundarySouth"]
-position = Vector2(642.75, 669)
+position = Vector2(640, 528)
 shape = SubResource("RectangleShape2D_c13lo")
 
 [node name="WorldBoundaryEast" type="StaticBody2D" parent="."]
 position = Vector2(1214, 53)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaryEast"]
-position = Vector2(70, 305)
+position = Vector2(-387, 310)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_bnf87")
 
@@ -201,8 +287,12 @@ position = Vector2(-1.35942e-05, 311)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_bnf87")
 
+[connection signal="pressed" from="GUI/UpgradeControlNode/UpgradeSelections/Option" to="GUI/UpgradeControlNode/UpgradeSelections/Option" method="_on_pressed"]
+[connection signal="pressed" from="GUI/UpgradeControlNode/UpgradeSelections/Option2" to="GUI/UpgradeControlNode/UpgradeSelections/Option2" method="_on_pressed"]
+[connection signal="pressed" from="GUI/UpgradeControlNode/UpgradeSelections/Option3" to="GUI/UpgradeControlNode/UpgradeSelections/Option3" method="_on_pressed"]
 [connection signal="visibility_changed" from="GUI/Portrait" to="." method="_on_portrait_visibility_changed"]
 [connection signal="toggled" from="GUI/PlayPause" to="." method="_on_play_pause_toggled"]
 [connection signal="toggled" from="GUI/Speed" to="." method="_on_speed_toggled"]
+[connection signal="pressed" from="GUI/StartRound" to="." method="_on_start_round_pressed"]
 [connection signal="child_entered_tree" from="AllUnits" to="." method="_on_all_units_child_entered_tree"]
 [connection signal="child_exiting_tree" from="AllUnits" to="." method="_on_all_units_child_exiting_tree"]

@@ -1,5 +1,7 @@
 extends Camera2D
 
+@onready var Game = get_parent()
+
 # Camera speed
 var camera_speed = 300
 
@@ -7,10 +9,10 @@ var camera_speed = 300
 var zoom_amount = Vector2(0.05, 0.05)
 
 func _input(event):
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and !Game.upgradeScreenActive:
 		if event.is_pressed():
 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-				if zoom.x > 1.5:
+				if zoom.x > 2:
 					zoom -= zoom_amount
 					position = get_screen_center_position()
 
@@ -20,13 +22,14 @@ func _input(event):
 					position = get_screen_center_position()
 
 func _process(delta):
-	var distance_from_screen_center = get_global_mouse_position() - get_screen_center_position()
-	var direction_from_screen_center = (get_global_mouse_position() - get_screen_center_position()).normalized()
-	if distance_from_screen_center.y * zoom.x > 360 and position.y + 360 / zoom.x < limit_bottom:
-		position.y += direction_from_screen_center.y * camera_speed * delta
-	elif distance_from_screen_center.y * zoom.x < -360 and position.y - 360 / zoom.x > limit_top:
-		position.y += direction_from_screen_center.y * camera_speed * delta
-	if distance_from_screen_center.x * zoom.x > 640 and position.x + 640 / zoom.x < limit_right:
-		position.x += direction_from_screen_center.x * camera_speed * delta
-	elif distance_from_screen_center.x * zoom.x < -640 and position.x - 640 / zoom.x > limit_left:
-		position.x += direction_from_screen_center.x * camera_speed * delta
+	if !Game.upgradeScreenActive:
+		var distance_from_screen_center = get_global_mouse_position() - get_screen_center_position()
+		var direction_from_screen_center = (get_global_mouse_position() - get_screen_center_position()).normalized()
+		if distance_from_screen_center.y * zoom.x > 360 and position.y + 360 / zoom.x < limit_bottom:
+			position.y += direction_from_screen_center.y * camera_speed * delta
+		elif distance_from_screen_center.y * zoom.x < -360 and position.y - 360 / zoom.x > limit_top:
+			position.y += direction_from_screen_center.y * camera_speed * delta
+		if distance_from_screen_center.x * zoom.x > 640 and position.x + 640 / zoom.x < limit_right:
+			position.x += direction_from_screen_center.x * camera_speed * delta
+		elif distance_from_screen_center.x * zoom.x < -640 and position.x - 640 / zoom.x > limit_left:
+			position.x += direction_from_screen_center.x * camera_speed * delta
