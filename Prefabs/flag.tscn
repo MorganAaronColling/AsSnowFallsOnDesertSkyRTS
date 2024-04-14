@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://2ltfxf5cou3s"]
+
+[ext_resource type="Texture2D" uid="uid://dbp1opy0vkhyf" path="res://UnitSprites/flag animation.png" id="1_p1bjb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_teyla"]
+atlas = ExtResource("1_p1bjb")
+region = Rect2(0, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34ouw"]
+atlas = ExtResource("1_p1bjb")
+region = Rect2(60, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eq2fq"]
+atlas = ExtResource("1_p1bjb")
+region = Rect2(120, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4ofk"]
+atlas = ExtResource("1_p1bjb")
+region = Rect2(180, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wetf"]
+atlas = ExtResource("1_p1bjb")
+region = Rect2(240, 0, 60, 60)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dc00u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_teyla")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_34ouw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eq2fq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x4ofk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wetf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Flag" type="AnimatedSprite2D"]
+position = Vector2(22, -6)
+sprite_frames = SubResource("SpriteFrames_dc00u")
+autoplay = "default"
+frame_progress = 0.232678
+offset = Vector2(0, -20)
+
+[node name="Shadow" type="AnimatedSprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.372549)
+position = Vector2(13, 35)
+scale = Vector2(1.1, -1.1)
+skew = -0.349066
+sprite_frames = SubResource("SpriteFrames_dc00u")
+autoplay = "default"

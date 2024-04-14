@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxf5na44dsstl"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_lhklw"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_2pfhg"]
+
+[node name="HealthBarControl" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -20.0
+offset_top = -32.0
+offset_right = 20.0
+offset_bottom = 7.99999
+scale = Vector2(1, 0.4)
+pivot_offset = Vector2(20, 20)
+mouse_filter = 2
+
+[node name="HealthBarBackground" type="TextureRect" parent="."]
+self_modulate = Color(0.27451, 0.294118, 0.286275, 1)
+layout_mode = 0
+offset_left = 13.0
+offset_top = 7.0
+offset_right = 27.0
+offset_bottom = 11.0
+pivot_offset = Vector2(7, 2)
+texture = SubResource("CanvasTexture_lhklw")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 8.0
+offset_right = 26.0
+offset_bottom = 10.0
+pivot_offset = Vector2(6, 1)
+value = 100.0
+nine_patch_stretch = true
+texture_progress = SubResource("CanvasTexture_2pfhg")
+tint_progress = Color(1, 0.388235, 0.388235, 1)

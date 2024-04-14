@@ -49,7 +49,7 @@ data = {
 },
 "OrcV1": {
 "acceleration": 80.0,
-"attack_damage": 4.0,
+"attack_damage": 2.0,
 "cleave": false,
 "friction": 2.0,
 "max_health": 15.0,
@@ -58,7 +58,7 @@ data = {
 },
 "OrcV2": {
 "acceleration": 80.0,
-"attack_damage": 4.0,
+"attack_damage": 3.0,
 "cleave": true,
 "friction": 2.0,
 "max_health": 25.0,

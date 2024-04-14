@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dqlh4jb2kc332"]
+[gd_scene load_steps=8 format=3 uid="uid://dqlh4jb2kc332"]
 
 [ext_resource type="Script" path="res://Scripts/BattlerClass.gd" id="1_vjcs1"]
 [ext_resource type="SpriteFrames" uid="uid://67bmf78y35wf" path="res://SpriteFrames/KnightSpriteFrames.tres" id="2_unkon"]
+[ext_resource type="PackedScene" uid="uid://dxf5na44dsstl" path="res://Prefabs/health_bar_control.tscn" id="3_dnypf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pkavw"]
 radius = 4.0
@@ -38,7 +39,7 @@ position = Vector2(6, 19)
 scale = Vector2(1.1, -1.1)
 skew = -0.349066
 sprite_frames = ExtResource("2_unkon")
-animation = &"attack"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="UnitPivot" type="Node2D" parent="."]
@@ -54,7 +55,7 @@ shape = SubResource("CapsuleShape2D_pkavw")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UnitPivot"]
 position = Vector2(-1, -14)
 sprite_frames = ExtResource("2_unkon")
-animation = &"fall"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="BloodEffect" type="GPUParticles2D" parent="UnitPivot"]
@@ -86,6 +87,8 @@ one_shot = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(0, 0)
+
+[node name="HealthBarControl" parent="." instance=ExtResource("3_dnypf")]
 
 [connection signal="area_entered" from="UnitPivot/AttackArea" to="." method="_on_attack_area_area_entered"]
 [connection signal="animation_changed" from="UnitPivot/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]

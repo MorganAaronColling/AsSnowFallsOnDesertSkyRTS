@@ -10,6 +10,7 @@ var unitStats = preload('res://Resources/UnitStats.tres')
 @onready var SurroundTimer = $SurroundTimer
 @onready var attackArea = $UnitPivot/AttackArea
 @onready var attackDelayTimer = $AttackDelayTimer
+@onready var healthBar = $HealthBarControl/HealthBar
 @onready var GUIPortraitAnimation = get_node('../../GUI/SelectedUnit')
 @onready var GUIHealth = get_node('../../GUI/Health')
 @onready var GUIPortraitBackground = get_node('../../GUI/Portrait')
@@ -69,6 +70,7 @@ func update_stats():
 	cleave = data.cleave
 	isRangedUnit = data.ranged
 	health = max_health
+	update_health_bar()
 	
 func _ready():
 	update_stats()
@@ -288,6 +290,7 @@ func take_damage(damage, ranged):
 		else:
 			BloodSplatter.emitting = true
 			health -= damage
+			update_health_bar()
 			if selected:
 				GUIHealth.text = str(health) + '/' + str(max_health)
 			if health > 0:
@@ -304,6 +307,7 @@ func take_damage(damage, ranged):
 			pass
 		else:
 			health -= damage
+			update_health_bar()
 			if selected:
 				GUIHealth.text = str(health) + '/' + str(max_health)
 			if health > 0:
@@ -328,7 +332,7 @@ func update_attack_target():
 		unitList = unitList[0]
 	else:
 		unitList = unitList[1]
-	if unitList.is_empty():
+	if unitList.is_empty() or (unitList.size() == 1 and unitList.has(attack_target) and attack_target.state == DEAD):
 		BattlerAnimation.play("idle")
 	else:
 		attack_target = get_closest_target(unitList)
@@ -348,6 +352,11 @@ func avoid_obstacles():
 			
 func reset_health():
 	health = max_health
+	update_health_bar()
 	if selected:
 		GUIHealth.text = str(health) + '/' + str(max_health)
+		
+func update_health_bar():
+	healthBar.max_value = max_health
+	healthBar.value = health
 

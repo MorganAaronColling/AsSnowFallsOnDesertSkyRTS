@@ -1,0 +1,34 @@
+[gd_resource type="JSON" format=3 uid="uid://b5h31svgx7jo5"]
+
+[resource]
+data = {
+"LevelData": [[{
+"Type": "res://Prefabs/OrcV1.tscn",
+"X": 300.0,
+"Y": 300.0
+}, {
+"Type": "res://Prefabs/OrcV1.tscn",
+"X": 320.0,
+"Y": 290.0
+}], [{
+"Type": "res://Prefabs/OrcV2.tscn",
+"X": 300.0,
+"Y": 290.0
+}], [{
+"Type": "res://Prefabs/OrcV1.tscn",
+"X": 300.0,
+"Y": 300.0
+}, {
+"Type": "res://Prefabs/OrcV2.tscn",
+"X": 320.0,
+"Y": 290.0
+}], [{
+"Type": "res://Prefabs/OrcV2.tscn",
+"X": 300.0,
+"Y": 300.0
+}, {
+"Type": "res://Prefabs/OrcV2.tscn",
+"X": 320.0,
+"Y": 290.0
+}]]
+}

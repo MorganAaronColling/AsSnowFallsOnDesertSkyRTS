@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8sr1vt2ktntt"]
+[gd_scene load_steps=8 format=3 uid="uid://b8sr1vt2ktntt"]
 
 [ext_resource type="Script" path="res://Scripts/BattlerClass.gd" id="1_jt8ub"]
 [ext_resource type="SpriteFrames" uid="uid://do3mnmf3e8en0" path="res://SpriteFrames/OrcV2SpriteFrames.tres" id="2_rwtlp"]
+[ext_resource type="PackedScene" uid="uid://dxf5na44dsstl" path="res://Prefabs/health_bar_control.tscn" id="3_q8mh1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pkavw"]
 radius = 4.0
@@ -86,6 +87,10 @@ one_shot = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(0, 0)
+
+[node name="HealthBarControl" parent="." instance=ExtResource("3_q8mh1")]
+offset_top = -33.0
+offset_bottom = 6.99999
 
 [connection signal="area_entered" from="UnitPivot/AttackArea" to="." method="_on_attack_area_area_entered"]
 [connection signal="animation_changed" from="UnitPivot/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]

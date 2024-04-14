@@ -1,20 +1,34 @@
 extends Node2D
 
+@export var option : PackedScene
+
 @export var orc1 : PackedScene
 @export var orc2 : PackedScene
 @export var knight1 : PackedScene
+@export var archer2 : PackedScene
 
 @onready var unitListNode = $AllUnits
 @onready var portraitNode = $GUI/Portrait
 @onready var roundChange = $GUI/RoundChange
 @onready var upgradeSelectionControl = $GUI/UpgradeControlNode
+@onready var upgradeSelections = $GUI/UpgradeControlNode/UpgradeSelections
+
+var levels = preload('res://Resources/roundData.tres')
 
 var unitList: Array = [[], []]
 var started = false
 var upgradeScreenActive = false
 var round = 1
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var offset = 0
+	for unit in Global.startingUnits:
+		var unitPrefab : PackedScene = load('res://Prefabs/' + unit + '.tscn')
+		var unitInstance = unitPrefab.instantiate()
+		unitInstance.global_position = Vector2(390 + offset, 300)
+		unitListNode.add_child(unitInstance)
+		offset += 20
 	round_start()
 	for unit in unitListNode.get_children():
 		unit.set_selected(false)
@@ -41,6 +55,9 @@ func _on_all_units_child_exiting_tree(node):
 	if unitList[1].is_empty():
 		await get_tree().create_timer(0.5).timeout
 		end_round()
+	if unitList[0].is_empty():
+			await get_tree().create_timer(0.5).timeout
+			end_game()
 		
 func round_start():
 	started = false
@@ -61,7 +78,8 @@ func end_round():
 	var tween = create_tween()
 	tween.tween_property(roundChange, "modulate", Color(1, 1, 1, 0), 3)
 	tween.tween_callback(start_next_round_pregame)
-	show_upgrade_menu()
+	if round == 2:
+		show_upgrade_menu()
 	
 func reset_round_change():
 	roundChange.visible = false
@@ -71,6 +89,13 @@ func start_next_round_pregame():
 	roundChange.modulate = Color(1, 1, 1)
 	round += 1
 	round_start()
+
+func end_game():
+	roundChange.text = 'Game Over!'
+	roundChange.visible = true
+	$GUI/StartRound.visible = true
+	await get_tree().create_timer(2).timeout
+	get_tree().quit()
 	
 func _on_play_pause_toggled(toggled_on):
 	if !toggled_on:
@@ -82,7 +107,7 @@ func _on_speed_toggled(toggled_on):
 	if !toggled_on:
 		Engine.time_scale = 1
 	else:
-		Engine.time_scale = 2
+		Engine.time_scale = 1.5
 		
 func show_options_menu():
 	pass
@@ -106,20 +131,26 @@ func _on_start_round_pressed():
 			unit.set_selected(false)
 		
 func spawn_enemies():
-	var enemy = orc1.instantiate()
-	enemy.global_position = Vector2(550, 300)
-	unitListNode.add_child(enemy, true)
-	var enemy2 = orc1.instantiate()
-	enemy2.global_position = Vector2(570, 300)
-	unitListNode.add_child(enemy2, true)
-	
+	for enemy in levels.data['LevelData'][round - 1]:
+		var enemyScene = load(enemy['Type'])
+		var enemyInstance = enemyScene.instantiate()
+		enemyInstance.global_position = Vector2(enemy['X'], enemy['Y'])
+		unitListNode.add_child(enemyInstance, true)
+			
 func show_upgrade_menu():
 	upgradeSelectionControl.visible = true
 	upgradeScreenActive = true
-	
+	for i in 3:
+		var o = option.instantiate()
+		upgradeSelections.add_child(o, true)
+	upgradeSelections.size = Vector2(192, 64)
+	upgradeSelections.position = Vector2(-96, -32)
+		
 func hide_upgrade_menu():
 	upgradeSelectionControl.visible = false
 	upgradeScreenActive = false
+	for option in upgradeSelections.get_children():
+		option.queue_free()
 	
 func spawn_ally(ally):
 	hide_upgrade_menu()
