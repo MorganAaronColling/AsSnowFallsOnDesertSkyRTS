@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=31 format=3 uid="uid://c1sy0bhq1m7bt"]
+[gd_resource type="SpriteFrames" load_steps=33 format=3 uid="uid://c1sy0bhq1m7bt"]
 
 [ext_resource type="Texture2D" uid="uid://cp3yo02mprrap" path="res://UnitSprites/16x16 knight 2 v3.png" id="1_56qpn"]
 
@@ -61,6 +61,14 @@ region = Rect2(320, 384, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_p0fk7"]
 atlas = ExtResource("1_56qpn")
 region = Rect2(384, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ks5jc"]
+atlas = ExtResource("1_56qpn")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2hve"]
+atlas = ExtResource("1_56qpn")
+region = Rect2(64, 192, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3jg6y"]
 atlas = ExtResource("1_56qpn")
@@ -178,6 +186,17 @@ animations = [{
 }],
 "loop": false,
 "name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ks5jc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j2hve")
+}],
+"loop": true,
+"name": &"fall",
 "speed": 8.0
 }, {
 "frames": [{

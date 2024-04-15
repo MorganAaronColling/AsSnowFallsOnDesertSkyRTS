@@ -19,6 +19,7 @@ var unitList: Array = [[], []]
 var started = false
 var upgradeScreenActive = false
 var round = 1
+var enemiesAdded = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -71,6 +72,7 @@ func round_start():
 	tween.tween_callback(reset_round_change)
 
 func end_round():
+	enemiesAdded = false
 	started = false
 	roundChange.text = 'Round ' + str(round) + ' Complete!'
 	roundChange.visible = true
@@ -107,7 +109,7 @@ func _on_speed_toggled(toggled_on):
 	if !toggled_on:
 		Engine.time_scale = 1
 	else:
-		Engine.time_scale = 1.5
+		Engine.time_scale = 1.25
 		
 func show_options_menu():
 	pass
@@ -122,7 +124,7 @@ func _on_portrait_visibility_changed():
 		hide_options_menu()
 
 func _on_start_round_pressed():
-	if !upgradeScreenActive:
+	if !upgradeScreenActive and enemiesAdded:
 		started = true
 		$GUI/StartRound.visible = false
 		for unit in unitListNode.get_children():
@@ -136,6 +138,7 @@ func spawn_enemies():
 		var enemyInstance = enemyScene.instantiate()
 		enemyInstance.global_position = Vector2(enemy['X'], enemy['Y'])
 		unitListNode.add_child(enemyInstance, true)
+	enemiesAdded = true
 			
 func show_upgrade_menu():
 	upgradeSelectionControl.visible = true

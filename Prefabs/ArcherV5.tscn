@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://bqo87x708r08y"]
+
+[ext_resource type="Script" path="res://Scripts/BattlerClassRanged.gd" id="1_j260w"]
+[ext_resource type="PackedScene" uid="uid://c75kwck4y5dx7" path="res://Prefabs/arrow.tscn" id="2_8xbp5"]
+[ext_resource type="SpriteFrames" uid="uid://tvn3lbjcrw1d" path="res://SpriteFrames/ArcherV5SpriteFrames.tres" id="4_j8lgs"]
+[ext_resource type="PackedScene" uid="uid://dxf5na44dsstl" path="res://Prefabs/health_bar_control.tscn" id="4_s3ime"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rhkgv"]
+radius = 120.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_705v6"]
+radius = 4.12311
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ee80e"]
+radius = 7.0
+height = 22.0
+
+[node name="ArcherV5-" type="CharacterBody2D" groups=["Ranged"]]
+script = ExtResource("1_j260w")
+arrow = ExtResource("2_8xbp5")
+tribe = "Player"
+
+[node name="AnimatedSpriteShadow2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.372549)
+position = Vector2(6, 19)
+scale = Vector2(1.1, -1.1)
+skew = -0.349066
+sprite_frames = ExtResource("4_j8lgs")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="UnitPivot" type="Node2D" parent="."]
+
+[node name="ArrowEmitter" type="Node2D" parent="UnitPivot"]
+position = Vector2(5, -9)
+
+[node name="AttackArea" type="Area2D" parent="UnitPivot"]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UnitPivot/AttackArea"]
+visible = false
+position = Vector2(0, -8)
+rotation = 1.5708
+shape = SubResource("CircleShape2D_rhkgv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UnitPivot"]
+position = Vector2(0, -15)
+sprite_frames = ExtResource("4_j8lgs")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_705v6")
+
+[node name="SelectionArea" type="Area2D" parent="." groups=["Unit"]]
+process_mode = 3
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SelectionArea"]
+position = Vector2(-1, -4)
+shape = SubResource("CapsuleShape2D_ee80e")
+
+[node name="SurroundTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AttackDelayTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 0)
+
+[node name="HealthBarControl" parent="." instance=ExtResource("4_s3ime")]
+offset_top = -31.0
+offset_bottom = 8.99999
+
+[connection signal="area_entered" from="UnitPivot/AttackArea" to="." method="_on_attack_area_area_entered"]
+[connection signal="animation_changed" from="UnitPivot/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
+[connection signal="animation_finished" from="UnitPivot/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="input_event" from="SelectionArea" to="." method="_on_selection_area_input_event"]
+[connection signal="timeout" from="SurroundTimer" to="." method="_on_surround_timer_timeout"]
+[connection signal="timeout" from="AttackDelayTimer" to="." method="_on_attack_delay_timer_timeout"]

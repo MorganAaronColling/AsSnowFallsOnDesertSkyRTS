@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://db4vos8fcw5he"
-path="res://.godot/imported/swordman_1.png-53d7679ff70a3c91f6cf382b9e4e2033.ctex"
+uid="uid://c1d7llrhbhmto"
+path="res://.godot/imported/Archer5_attack_3.png-c636d32e613d0bc73f72f3b8c9d7d678.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UnitSprites/swordman_1.png"
-dest_files=["res://.godot/imported/swordman_1.png-53d7679ff70a3c91f6cf382b9e4e2033.ctex"]
+source_file="res://UnitSprites/Archer5/Archer5_attack_3.png"
+dest_files=["res://.godot/imported/Archer5_attack_3.png-c636d32e613d0bc73f72f3b8c9d7d678.ctex"]
 
 [params]
 

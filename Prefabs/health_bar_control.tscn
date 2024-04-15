@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxf5na44dsstl"]
+[gd_scene load_steps=4 format=3 uid="uid://dxf5na44dsstl"]
+
+[ext_resource type="Script" path="res://Scripts/health_bar_control.gd" id="1_nfih2"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_lhklw"]
 
@@ -14,6 +16,7 @@ offset_bottom = 7.99999
 scale = Vector2(1, 0.4)
 pivot_offset = Vector2(20, 20)
 mouse_filter = 2
+script = ExtResource("1_nfih2")
 
 [node name="HealthBarBackground" type="TextureRect" parent="."]
 self_modulate = Color(0.27451, 0.294118, 0.286275, 1)
@@ -35,4 +38,4 @@ pivot_offset = Vector2(6, 1)
 value = 100.0
 nine_patch_stretch = true
 texture_progress = SubResource("CanvasTexture_2pfhg")
-tint_progress = Color(1, 0.388235, 0.388235, 1)
+tint_progress = Color(0.882353, 0.380392, 0.372549, 1)

@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=3 uid="uid://dn6g81aty1ydb"]
+
+[ext_resource type="Script" path="res://Scripts/BattlerClass.gd" id="1_wp7kr"]
+[ext_resource type="SpriteFrames" uid="uid://bw7gxmvi08lx5" path="res://SpriteFrames/OrcV4SpriteFrames.tres" id="2_rchyb"]
+[ext_resource type="PackedScene" uid="uid://dxf5na44dsstl" path="res://Prefabs/health_bar_control.tscn" id="3_6o8lm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pkavw"]
+radius = 4.0
+height = 16.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yq2ux"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 10.0
+spread = 70.0
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.5
+scale_max = 2.0
+color = Color(0.654902, 0.160784, 0.25098, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u2l0i"]
+radius = 4.12311
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rwmsu"]
+radius = 8.0
+height = 26.0
+
+[node name="OrcV4-" type="CharacterBody2D"]
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_wp7kr")
+tribe = "AI"
+
+[node name="AnimatedSpriteShadow2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.372549)
+position = Vector2(6, 19)
+scale = Vector2(1.1, -1.1)
+skew = -0.349066
+sprite_frames = ExtResource("2_rchyb")
+animation = &"attack"
+autoplay = "idle"
+
+[node name="UnitPivot" type="Node2D" parent="."]
+
+[node name="AttackArea" type="Area2D" parent="UnitPivot"]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UnitPivot/AttackArea"]
+position = Vector2(8, -8)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_pkavw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UnitPivot"]
+position = Vector2(-1, -14)
+sprite_frames = ExtResource("2_rchyb")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="BloodEffect" type="GPUParticles2D" parent="UnitPivot"]
+position = Vector2(0, -5)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_yq2ux")
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_u2l0i")
+
+[node name="SelectionArea" type="Area2D" parent="." groups=["Unit"]]
+process_mode = 3
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SelectionArea"]
+visible = false
+position = Vector2(0, -8)
+shape = SubResource("CapsuleShape2D_rwmsu")
+
+[node name="SurroundTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AttackDelayTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 0)
+
+[node name="HealthBarControl" parent="." instance=ExtResource("3_6o8lm")]
+offset_top = -33.0
+offset_bottom = 6.99999
+
+[connection signal="area_entered" from="UnitPivot/AttackArea" to="." method="_on_attack_area_area_entered"]
+[connection signal="animation_changed" from="UnitPivot/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
+[connection signal="animation_finished" from="UnitPivot/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="input_event" from="SelectionArea" to="." method="_on_selection_area_input_event"]
+[connection signal="timeout" from="SurroundTimer" to="." method="_on_surround_timer_timeout"]
+[connection signal="timeout" from="AttackDelayTimer" to="." method="_on_attack_delay_timer_timeout"]

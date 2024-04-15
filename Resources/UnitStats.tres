@@ -4,6 +4,7 @@
 data = {
 "ArcherV1": {
 "acceleration": 90.0,
+"arrowBurst": false,
 "attack_damage": 3.0,
 "cleave": false,
 "friction": 2.0,
@@ -13,6 +14,7 @@ data = {
 },
 "ArcherV2": {
 "acceleration": 90.0,
+"arrowBurst": false,
 "attack_damage": 2.0,
 "cleave": false,
 "friction": 2.0,
@@ -22,6 +24,27 @@ data = {
 },
 "ArcherV3": {
 "acceleration": 90.0,
+"arrowBurst": false,
+"attack_damage": 2.0,
+"cleave": false,
+"friction": 2.0,
+"max_health": 10.0,
+"max_speed": 275.0,
+"ranged": true
+},
+"ArcherV4": {
+"acceleration": 90.0,
+"arrowBurst": false,
+"attack_damage": 2.0,
+"cleave": false,
+"friction": 2.0,
+"max_health": 10.0,
+"max_speed": 275.0,
+"ranged": true
+},
+"ArcherV5": {
+"acceleration": 90.0,
+"arrowBurst": true,
 "attack_damage": 2.0,
 "cleave": false,
 "friction": 2.0,
@@ -31,6 +54,7 @@ data = {
 },
 "KnightV1": {
 "acceleration": 100.0,
+"arrowBurst": false,
 "attack_damage": 2.0,
 "cleave": false,
 "friction": 2.0,
@@ -40,6 +64,27 @@ data = {
 },
 "KnightV2": {
 "acceleration": 100.0,
+"arrowBurst": false,
+"attack_damage": 4.0,
+"cleave": true,
+"friction": 2.0,
+"max_health": 30.0,
+"max_speed": 300.0,
+"ranged": false
+},
+"KnightV3": {
+"acceleration": 100.0,
+"arrowBurst": false,
+"attack_damage": 4.0,
+"cleave": true,
+"friction": 2.0,
+"max_health": 30.0,
+"max_speed": 300.0,
+"ranged": false
+},
+"KnightV4": {
+"acceleration": 100.0,
+"arrowBurst": false,
 "attack_damage": 4.0,
 "cleave": true,
 "friction": 2.0,
@@ -49,6 +94,7 @@ data = {
 },
 "OrcV1": {
 "acceleration": 80.0,
+"arrowBurst": false,
 "attack_damage": 2.0,
 "cleave": false,
 "friction": 2.0,
@@ -58,6 +104,27 @@ data = {
 },
 "OrcV2": {
 "acceleration": 80.0,
+"arrowBurst": false,
+"attack_damage": 3.0,
+"cleave": true,
+"friction": 2.0,
+"max_health": 25.0,
+"max_speed": 250.0,
+"ranged": false
+},
+"OrcV3": {
+"acceleration": 80.0,
+"arrowBurst": false,
+"attack_damage": 3.0,
+"cleave": true,
+"friction": 2.0,
+"max_health": 25.0,
+"max_speed": 250.0,
+"ranged": false
+},
+"OrcV4": {
+"acceleration": 80.0,
+"arrowBurst": false,
 "attack_damage": 3.0,
 "cleave": true,
 "friction": 2.0,

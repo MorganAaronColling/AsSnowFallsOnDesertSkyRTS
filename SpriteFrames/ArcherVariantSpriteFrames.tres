@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=28 format=3 uid="uid://demcl1in3xll"]
+[gd_resource type="SpriteFrames" load_steps=30 format=3 uid="uid://demcl1in3xll"]
 
 [ext_resource type="Texture2D" uid="uid://dhgdf33itc7d" path="res://UnitSprites/Archer1/Archer1_idle_0.png" id="1_53xad"]
 [ext_resource type="Texture2D" uid="uid://b5lqh1pp62cfa" path="res://UnitSprites/Archer1/Archer1_attack_0.png" id="1_72hjl"]
@@ -19,6 +19,8 @@
 [ext_resource type="Texture2D" uid="uid://cdy3j84karhx" path="res://UnitSprites/Archer1/Archer1_dead_5.png" id="12_8tn3e"]
 [ext_resource type="Texture2D" uid="uid://c2mw0lnyib254" path="res://UnitSprites/Archer1/Archer1_dead_6.png" id="13_dp1ug"]
 [ext_resource type="Texture2D" uid="uid://dujvmldhurbhb" path="res://UnitSprites/Archer1/Archer1_dead_7.png" id="14_ikafo"]
+[ext_resource type="Texture2D" uid="uid://cwaecr4l30cl4" path="res://UnitSprites/Archer1/Archer1_fall_0.png" id="15_svgdh"]
+[ext_resource type="Texture2D" uid="uid://bvp43y1wlmrk7" path="res://UnitSprites/Archer1/Archer1_fall_1.png" id="16_y0pff"]
 [ext_resource type="Texture2D" uid="uid://b5yfwrybg6pwv" path="res://UnitSprites/Archer1/Archer1_run_0.png" id="20_ywbiu"]
 [ext_resource type="Texture2D" uid="uid://b83yid57uusiq" path="res://UnitSprites/Archer1/Archer1_run_1.png" id="21_q23ro"]
 [ext_resource type="Texture2D" uid="uid://wa176uocq3i4" path="res://UnitSprites/Archer1/Archer1_run_2.png" id="22_blljv"]
@@ -80,6 +82,17 @@ animations = [{
 }],
 "loop": false,
 "name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_svgdh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_y0pff")
+}],
+"loop": true,
+"name": &"fall",
 "speed": 8.0
 }, {
 "frames": [{

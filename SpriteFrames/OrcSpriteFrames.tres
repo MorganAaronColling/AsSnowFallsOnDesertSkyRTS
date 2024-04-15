@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=30 format=3 uid="uid://b88rlypka6lis"]
+[gd_resource type="SpriteFrames" load_steps=32 format=3 uid="uid://b88rlypka6lis"]
 
 [ext_resource type="Texture2D" uid="uid://cujjxmetiluhp" path="res://UnitSprites/Orc1/Orc1_attack_0.png" id="1_uodof"]
 [ext_resource type="Texture2D" uid="uid://jp2y1ikqrbs1" path="res://UnitSprites/Orc1/Orc1_attack_1.png" id="2_rlrh3"]
@@ -16,7 +16,9 @@
 [ext_resource type="Texture2D" uid="uid://c1xj14l2cdaes" path="res://UnitSprites/Orc1/Orc1_dead_5.png" id="14_3iejs"]
 [ext_resource type="Texture2D" uid="uid://b6x3o034iob2a" path="res://UnitSprites/Orc1/Orc1_dead_6.png" id="15_17vr3"]
 [ext_resource type="Texture2D" uid="uid://ecmio5tdwolh" path="res://UnitSprites/Orc1/Orc1_dead_7.png" id="16_he6kn"]
+[ext_resource type="Texture2D" uid="uid://bsly6etjsw1q5" path="res://UnitSprites/Orc1/Orc1_fall_0.png" id="17_cw4hd"]
 [ext_resource type="Texture2D" uid="uid://bxk0pan5076p4" path="res://UnitSprites/Orc1/Orc1_idle_0.png" id="17_ui55b"]
+[ext_resource type="Texture2D" uid="uid://c3u3ae5k145i0" path="res://UnitSprites/Orc1/Orc1_fall_1.png" id="18_ktyrj"]
 [ext_resource type="Texture2D" uid="uid://ebocon6ckxeu" path="res://UnitSprites/Orc1/Orc1_idle_1.png" id="18_ok2p1"]
 [ext_resource type="Texture2D" uid="uid://bfhdx4yuyhf35" path="res://UnitSprites/Orc1/Orc1_idle_2.png" id="19_ffdty"]
 [ext_resource type="Texture2D" uid="uid://8mk1i67heum1" path="res://UnitSprites/Orc1/Orc1_idle_3.png" id="20_ax3uc"]
@@ -93,6 +95,17 @@ animations = [{
 }],
 "loop": false,
 "name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_cw4hd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_ktyrj")
+}],
+"loop": true,
+"name": &"fall",
 "speed": 8.0
 }, {
 "frames": [{

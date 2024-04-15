@@ -3,6 +3,9 @@ extends CharacterBody2D
 # UnitStats Resource
 var unitStats = preload('res://Resources/UnitStats.tres')
 
+# Blood
+var bloodEffect = preload("res://Prefabs/blood_effect.tscn") 
+
 # Nodes
 @onready var BattlerAnimation = $UnitPivot/AnimatedSprite2D
 @onready var BattlerAnimationShadow = $AnimatedSpriteShadow2D
@@ -14,7 +17,6 @@ var unitStats = preload('res://Resources/UnitStats.tres')
 @onready var GUIPortraitAnimation = get_node('../../GUI/SelectedUnit')
 @onready var GUIHealth = get_node('../../GUI/Health')
 @onready var GUIPortraitBackground = get_node('../../GUI/Portrait')
-@onready var BloodSplatter = $UnitPivot/BloodEffect
 @onready var Game = get_node('../../')
 
 # Stats
@@ -23,10 +25,10 @@ var acceleration: int
 var friction: float
 var attack_damage: int
 var max_health: int
-var hurt_delay = 0.4
-var block_delay = 0.3
-var surround_timer_delay_melee = randf_range(0.5, 1)
-var surround_timer_delay_ranged = randf_range(0.25, 0.5)
+var hurt_delay = 0.2
+var block_delay = 0.1
+var surround_timer_delay_melee = randf_range(0.25, 0.5)
+var surround_timer_delay_ranged = randf_range(0.5, 0.75)
 var health
 
 # Misc
@@ -38,10 +40,14 @@ var selectionTween: Tween
 var pregameTween: Tween
 var attack_target: CharacterBody2D
 var dragged: bool = false
+var attacked: bool = false
 
 # Abilities
 var cleave: bool = false
+var sturdy: bool = false
 var isRangedUnit: bool = false
+var lifesteal: bool = false
+var arrowBurst: bool = false
 
 # ENUM
 enum {
@@ -69,6 +75,7 @@ func update_stats():
 	max_health = data.max_health
 	cleave = data.cleave
 	isRangedUnit = data.ranged
+	arrowBurst = data.arrowBurst
 	health = max_health
 	update_health_bar()
 	
@@ -118,12 +125,12 @@ func _physics_process(delta):
 	
 func get_radius_range_circle_position():
 	if self.is_in_group('Ranged'):
-		return randi_range(100, 110)
+		return randi_range(90, 110)
 	else:
 		if is_instance_valid(attack_target) and attack_target.is_in_group('Ranged'):
 			return randi_range(20, 40)
 		else:
-			return randi_range(20, 100)
+			return randi_range(20, 80)
 		
 func _on_animated_sprite_2d_animation_changed():
 	if BattlerAnimation and BattlerAnimationShadow:
@@ -230,6 +237,7 @@ func _on_attack_area_area_entered(area):
 		
 func _on_animated_sprite_2d_animation_finished():
 	if BattlerAnimation.animation == 'attack':
+		attacked = false
 		enter_surround_state()
 		attackArea.monitoring = false
 	if BattlerAnimation.animation == 'hurt':
@@ -270,49 +278,56 @@ func _on_surround_timer_timeout():
 		attackArea.monitoring = true
 
 func deal_damage():
-	if BattlerAnimation.animation == 'attack':
+	if BattlerAnimation.animation == 'attack' and !attacked:
 		if BattlerAnimation.frame == 3 and attackArea.monitoring:
 			for area in attackArea.get_overlapping_areas():
 				var parent = area.get_parent()
 				if area.is_in_group('Unit') and parent != self and parent.tribe != tribe:
 					parent.take_damage(attack_damage, false)
 					if !cleave:
+						attacked = true
 						break
+					if lifesteal:
+						heal(attack_damage)
+			attacked = true
 		else:
 			pass
 			
 func take_damage(damage, ranged):
 	var chance = randf()
-	if state != DEAD and state != HURT and state != BLOCK and !ranged:
-		if chance < 0.15 and !isRangedUnit:
+	if state != DEAD and state != BLOCK and !ranged:
+		if chance < 0.25 and !isRangedUnit:
 			state = BLOCK
 			BattlerAnimation.play("blocking")
 		else:
-			BloodSplatter.emitting = true
 			health -= damage
+			show_blood_effect()
 			update_health_bar()
 			if selected:
 				GUIHealth.text = str(health) + '/' + str(max_health)
 			if health > 0:
-				state = HURT
-				BattlerAnimation.play("hurt")
+				if !sturdy:
+					state = HURT
+					BattlerAnimation.play("hurt")
 			else:
 				if selected:
 					GUIPortraitBackground.play('break')
 				attackArea.monitoring = false
 				state = DEAD
 				BattlerAnimation.play("death")
-	elif state != DEAD and state != HURT and state != BLOCK and ranged:
+	elif state != DEAD and state != BLOCK and ranged:
 		if chance < 0.20:
 			pass
 		else:
 			health -= damage
+			show_blood_effect()
 			update_health_bar()
 			if selected:
 				GUIHealth.text = str(health) + '/' + str(max_health)
 			if health > 0:
-				state = HURT
-				BattlerAnimation.play("hurt")
+				if !sturdy:
+					state = HURT
+					BattlerAnimation.play("hurt")
 			else:
 				if selected:
 					GUIPortraitBackground.play('break')
@@ -356,7 +371,24 @@ func reset_health():
 	if selected:
 		GUIHealth.text = str(health) + '/' + str(max_health)
 		
+func heal(heal_amount):
+	if health < max_health:
+		health += heal_amount
+		if health > max_health:
+			health = max_health
+		
 func update_health_bar():
 	healthBar.max_value = max_health
 	healthBar.value = health
+	if selected:
+		GUIHealth.text = str(health) + '/' + str(max_health)
+		
+func show_blood_effect():
+	var b_effect = bloodEffect.instantiate()
+	b_effect.emitting = true
+	add_child(b_effect)
+	UnitPivot.modulate = Color(0.984, 0, 0)
+	await get_tree().create_timer(0.1).timeout
+	UnitPivot.modulate = Color(1, 1, 1)
+	
 

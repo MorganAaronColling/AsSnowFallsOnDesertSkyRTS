@@ -41,6 +41,7 @@ skew = -0.349066
 sprite_frames = ExtResource("2_unkon")
 animation = &"idle"
 autoplay = "idle"
+metadata/_edit_lock_ = true
 
 [node name="UnitPivot" type="Node2D" parent="."]
 

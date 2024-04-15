@@ -41,10 +41,10 @@ func _physics_process(delta):
 		global_position = get_global_mouse_position()
 
 func deal_damage():
-	if BattlerAnimation.animation == 'attack':
+	if BattlerAnimation.animation == 'attack' and !attacked:
 		if BattlerAnimation.frame == 3 and attackArea.monitoring:
 			var overlapping_areas = attackArea.get_overlapping_areas()
-			if overlapping_areas.has(attack_target.attackArea):
+			if is_instance_valid(attack_target) and overlapping_areas.has(attack_target.attackArea):
 				spawn_arrow(attack_target)
 			else:
 				for area in overlapping_areas:
@@ -56,12 +56,27 @@ func deal_damage():
 							break
 			
 func spawn_arrow(target):
-	var arrow_offset = Vector2(0, -10)
-	var arrow_direction = (target.global_position - arrowEmitter.global_position) + arrow_offset
-	var a = arrow.instantiate()
-	a.transform = arrowEmitter.transform
-	a.initial_direction = arrow_direction.normalized()
-	a.tribe = tribe
-	a.attack_target = target
-	a.damage = attack_damage
-	add_child(a)
+	attacked = true
+	if arrowBurst:
+		for i in 3:
+			if is_instance_valid(target):
+				var arrow_offset = Vector2(0, randi_range(-5, -15))
+				var arrow_direction = (target.global_position - arrowEmitter.global_position) + arrow_offset
+				var a = arrow.instantiate()
+				a.transform = arrowEmitter.transform
+				a.initial_direction = arrow_direction.normalized()
+				a.tribe = tribe
+				a.attack_target = target
+				a.damage = attack_damage
+				add_child(a)
+				await get_tree().create_timer(0.05).timeout
+	else:
+		var arrow_offset = Vector2(0, -10)
+		var arrow_direction = (target.global_position - arrowEmitter.global_position) + arrow_offset
+		var a = arrow.instantiate()
+		a.transform = arrowEmitter.transform
+		a.initial_direction = arrow_direction.normalized()
+		a.tribe = tribe
+		a.attack_target = target
+		a.damage = attack_damage
+		add_child(a)
