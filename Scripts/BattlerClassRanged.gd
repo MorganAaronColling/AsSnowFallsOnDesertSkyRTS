@@ -69,7 +69,7 @@ func spawn_arrow(target):
 				a.attack_target = target
 				a.damage = attack_damage
 				add_child(a)
-				await get_tree().create_timer(0.05).timeout
+				await get_tree().create_timer(0.1).timeout
 	else:
 		var arrow_offset = Vector2(0, -10)
 		var arrow_direction = (target.global_position - arrowEmitter.global_position) + arrow_offset

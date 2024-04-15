@@ -137,6 +137,7 @@ func spawn_enemies():
 		var enemyScene = load(enemy['Type'])
 		var enemyInstance = enemyScene.instantiate()
 		enemyInstance.global_position = Vector2(enemy['X'], enemy['Y'])
+		enemyInstance.tribe = 'AI'
 		unitListNode.add_child(enemyInstance, true)
 	enemiesAdded = true
 			

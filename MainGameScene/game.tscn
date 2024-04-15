@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://cfv10u1jup6ra"]
+[gd_scene load_steps=58 format=3 uid="uid://cfv10u1jup6ra"]
 
 [ext_resource type="PackedScene" uid="uid://dqlh4jb2kc332" path="res://Prefabs/KnightV1.tscn" id="1_6y344"]
 [ext_resource type="Script" path="res://Scripts/game.gd" id="1_r2xw5"]
@@ -35,6 +35,16 @@
 [ext_resource type="PackedScene" uid="uid://cf8hb4l5iotft" path="res://Prefabs/KnightV4.tscn" id="31_vtp7w"]
 [ext_resource type="PackedScene" uid="uid://bal5nufbjiue8" path="res://Prefabs/OrcV3.tscn" id="32_25jk2"]
 [ext_resource type="PackedScene" uid="uid://dn6g81aty1ydb" path="res://Prefabs/OrcV4.tscn" id="33_f5rwa"]
+[ext_resource type="PackedScene" uid="uid://d4b5xvob5iclf" path="res://Prefabs/SkeletonV1.tscn" id="35_3mm3t"]
+[ext_resource type="PackedScene" uid="uid://dofi2ogc1xacb" path="res://Prefabs/SkeletonV2.tscn" id="35_vmutl"]
+[ext_resource type="PackedScene" uid="uid://p2h5i5oe1032" path="res://Prefabs/SkeletonV3.tscn" id="37_fhw2s"]
+[ext_resource type="PackedScene" uid="uid://bnotlu44vo8rw" path="res://Prefabs/SkeletonV4.tscn" id="39_4h4vp"]
+[ext_resource type="PackedScene" uid="uid://b8u1pksvttxlg" path="res://Prefabs/BarbarianV1.tscn" id="40_bvens"]
+[ext_resource type="PackedScene" uid="uid://ck32184d7jkrk" path="res://Prefabs/BarbarianV2.tscn" id="40_l162g"]
+[ext_resource type="PackedScene" uid="uid://b2l8lsrbqg784" path="res://Prefabs/BarbarianV3.tscn" id="41_sue3f"]
+[ext_resource type="PackedScene" uid="uid://cbpbnc38iawlr" path="res://Prefabs/BarbarianV4.tscn" id="42_takqr"]
+[ext_resource type="PackedScene" uid="uid://bi5sqhjxxxu5g" path="res://Prefabs/BanditV1.tscn" id="43_l5fww"]
+[ext_resource type="PackedScene" uid="uid://bdamxfig3lqgk" path="res://Prefabs/BanditV2.tscn" id="44_7tc6l"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_jph56"]
 
@@ -1924,43 +1934,165 @@ y_sort_enabled = true
 position = Vector2(-3, 10)
 
 [node name="ArcherV1-" parent="AllUnits" instance=ExtResource("26_rr080")]
-position = Vector2(634, 258)
+position = Vector2(408, 213)
 
 [node name="ArcherV2-" parent="AllUnits" instance=ExtResource("18_pqpac")]
-position = Vector2(644, 304)
-
-[node name="ArcherV3-" parent="AllUnits" instance=ExtResource("27_1a6u4")]
-position = Vector2(261, 285)
-
-[node name="ArcherV4-" parent="AllUnits" instance=ExtResource("30_hab5u")]
-position = Vector2(272, 321)
+position = Vector2(447, 211)
 
 [node name="ArcherV5-" parent="AllUnits" instance=ExtResource("29_n6yno")]
-position = Vector2(659, 274)
+position = Vector2(484, 176)
 
 [node name="KnightV1-" parent="AllUnits" instance=ExtResource("1_6y344")]
-position = Vector2(575, 237)
+position = Vector2(604, 133)
 
 [node name="KnightV2-" parent="AllUnits" instance=ExtResource("28_ifsqq")]
-position = Vector2(592, 266)
+position = Vector2(518, 135)
 
 [node name="KnightV3-" parent="AllUnits" instance=ExtResource("30_2jcau")]
-position = Vector2(617, 337)
+position = Vector2(568, 133)
 
 [node name="KnightV4-" parent="AllUnits" instance=ExtResource("31_vtp7w")]
-position = Vector2(601, 298)
+position = Vector2(475, 135)
+
+[node name="SkeletonV2-" parent="AllUnits" instance=ExtResource("35_vmutl")]
+position = Vector2(317, 177)
+
+[node name="SkeletonV1-" parent="AllUnits" instance=ExtResource("35_3mm3t")]
+position = Vector2(276, 177)
+
+[node name="SkeletonV4-" parent="AllUnits" instance=ExtResource("39_4h4vp")]
+position = Vector2(233, 179)
+
+[node name="ArcherV3-" parent="AllUnits" instance=ExtResource("27_1a6u4")]
+position = Vector2(443, 178)
+
+[node name="ArcherV4-" parent="AllUnits" instance=ExtResource("30_hab5u")]
+position = Vector2(407, 179)
 
 [node name="OrcV1-" parent="AllUnits" instance=ExtResource("21_u2qe2")]
-position = Vector2(313, 338)
+position = Vector2(363, 141)
 
 [node name="OrcV2-" parent="AllUnits" instance=ExtResource("22_1u7w6")]
-position = Vector2(304, 309)
+position = Vector2(318, 141)
 
 [node name="OrcV3-" parent="AllUnits" instance=ExtResource("32_25jk2")]
-position = Vector2(299, 286)
+position = Vector2(275, 138)
 
 [node name="OrcV4-" parent="AllUnits" instance=ExtResource("33_f5rwa")]
-position = Vector2(299, 260)
+position = Vector2(233, 139)
+
+[node name="SkeletonV3-" parent="AllUnits" instance=ExtResource("37_fhw2s")]
+position = Vector2(360, 179)
+
+[node name="BarbarianV1-" parent="AllUnits" instance=ExtResource("40_bvens")]
+position = Vector2(231, 217)
+
+[node name="BarbarianV2-" parent="AllUnits" instance=ExtResource("40_l162g")]
+position = Vector2(275, 217)
+
+[node name="BarbarianV3-" parent="AllUnits" instance=ExtResource("41_sue3f")]
+position = Vector2(314, 216)
+
+[node name="BarbarianV4-" parent="AllUnits" instance=ExtResource("42_takqr")]
+position = Vector2(357, 217)
+
+[node name="BanditV1-" parent="AllUnits" instance=ExtResource("43_l5fww")]
+position = Vector2(402, 141)
+
+[node name="BanditV2-" parent="AllUnits" instance=ExtResource("44_7tc6l")]
+position = Vector2(438, 137)
+
+[node name="ArcherV1-2" parent="AllUnits" instance=ExtResource("26_rr080")]
+position = Vector2(409, 338)
+tribe = "AI"
+
+[node name="ArcherV2-2" parent="AllUnits" instance=ExtResource("18_pqpac")]
+position = Vector2(448, 336)
+tribe = "AI"
+
+[node name="ArcherV5-2" parent="AllUnits" instance=ExtResource("29_n6yno")]
+position = Vector2(485, 301)
+tribe = "AI"
+
+[node name="KnightV1-2" parent="AllUnits" instance=ExtResource("1_6y344")]
+position = Vector2(605, 258)
+tribe = "AI"
+
+[node name="KnightV2-2" parent="AllUnits" instance=ExtResource("28_ifsqq")]
+position = Vector2(519, 260)
+tribe = "AI"
+
+[node name="KnightV3-2" parent="AllUnits" instance=ExtResource("30_2jcau")]
+position = Vector2(569, 258)
+tribe = "AI"
+
+[node name="KnightV4-2" parent="AllUnits" instance=ExtResource("31_vtp7w")]
+position = Vector2(476, 260)
+tribe = "AI"
+
+[node name="SkeletonV2-2" parent="AllUnits" instance=ExtResource("35_vmutl")]
+position = Vector2(318, 302)
+tribe = "AI"
+
+[node name="SkeletonV1-2" parent="AllUnits" instance=ExtResource("35_3mm3t")]
+position = Vector2(277, 302)
+tribe = "AI"
+
+[node name="SkeletonV4-2" parent="AllUnits" instance=ExtResource("39_4h4vp")]
+position = Vector2(234, 304)
+tribe = "AI"
+
+[node name="ArcherV3-2" parent="AllUnits" instance=ExtResource("27_1a6u4")]
+position = Vector2(444, 303)
+tribe = "AI"
+
+[node name="ArcherV4-2" parent="AllUnits" instance=ExtResource("30_hab5u")]
+position = Vector2(408, 304)
+tribe = "AI"
+
+[node name="OrcV1-2" parent="AllUnits" instance=ExtResource("21_u2qe2")]
+position = Vector2(364, 266)
+tribe = "AI"
+
+[node name="OrcV2-2" parent="AllUnits" instance=ExtResource("22_1u7w6")]
+position = Vector2(319, 266)
+tribe = "AI"
+
+[node name="OrcV3-2" parent="AllUnits" instance=ExtResource("32_25jk2")]
+position = Vector2(276, 263)
+tribe = "AI"
+
+[node name="OrcV4-2" parent="AllUnits" instance=ExtResource("33_f5rwa")]
+position = Vector2(234, 264)
+tribe = "AI"
+
+[node name="SkeletonV3-2" parent="AllUnits" instance=ExtResource("37_fhw2s")]
+position = Vector2(361, 304)
+tribe = "AI"
+
+[node name="BarbarianV1-2" parent="AllUnits" instance=ExtResource("40_bvens")]
+position = Vector2(232, 342)
+tribe = "AI"
+
+[node name="BarbarianV2-2" parent="AllUnits" instance=ExtResource("40_l162g")]
+position = Vector2(276, 342)
+tribe = "AI"
+
+[node name="BarbarianV3-2" parent="AllUnits" instance=ExtResource("41_sue3f")]
+position = Vector2(315, 341)
+tribe = "AI"
+
+[node name="BarbarianV4-2" parent="AllUnits" instance=ExtResource("42_takqr")]
+position = Vector2(358, 342)
+tribe = "AI"
+
+[node name="BanditV1-2" parent="AllUnits" instance=ExtResource("43_l5fww")]
+position = Vector2(403, 266)
+tribe = "AI"
+
+[node name="BanditV2-2" parent="AllUnits" instance=ExtResource("44_7tc6l")]
+position = Vector2(439, 262)
+tribe = "AI"
 
 [node name="Objects" type="Node2D" parent="."]
 y_sort_enabled = true

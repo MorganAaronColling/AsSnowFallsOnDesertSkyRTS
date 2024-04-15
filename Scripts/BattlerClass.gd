@@ -30,6 +30,7 @@ var block_delay = 0.1
 var surround_timer_delay_melee = randf_range(0.25, 0.5)
 var surround_timer_delay_ranged = randf_range(0.5, 0.75)
 var health
+var race
 
 # Misc
 @export var tribe: String
@@ -68,14 +69,19 @@ var state = IDLE
 func update_stats():
 	var data = unitStats.data[name.split('-', true)[0]]
 	# BASE STATS
+	#race = data.race
 	max_speed = data.max_speed
 	acceleration = data.acceleration
 	friction = data.friction
 	attack_damage = data.attack_damage
 	max_health = data.max_health
-	cleave = data.cleave
 	isRangedUnit = data.ranged
-	arrowBurst = data.arrowBurst
+	if !isRangedUnit:
+		cleave = data.cleave
+		lifesteal = data.lifesteal
+		sturdy = data.sturdy
+	else:
+		arrowBurst = data.arrowBurst
 	health = max_health
 	update_health_bar()
 	

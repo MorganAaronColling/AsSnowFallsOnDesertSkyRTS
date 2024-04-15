@@ -30,7 +30,7 @@ height = 22.0
 [node name="ArcherV3-" type="CharacterBody2D" groups=["Ranged"]]
 script = ExtResource("1_va5v2")
 arrow = ExtResource("2_n8aq4")
-tribe = "AI"
+tribe = "Player"
 
 [node name="AnimatedSpriteShadow2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0, 0, 0, 0.372549)
