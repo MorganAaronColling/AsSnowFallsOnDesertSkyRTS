@@ -8,11 +8,11 @@ var unit : PackedScene
 func _ready():
 	unitRNG = randi_range(0, 1)
 	if unitRNG == 1:
-		texture_normal = load('res://UnitSprites/16x16 knight 1 v3-icon.png')
-		unit = Game.knight1
+		texture_normal = load('res://UnitSprites/Orc1/Orc1_idle_0.png')
+		unit = Game.orc1
 	else:
-		texture_normal = load('res://UnitSprites/Archer2/Archer2_idle_0.png')
-		unit = Game.archer2
+		texture_normal = load('res://UnitSprites/Orc4/Orc4_idle_0.png')
+		unit = Game.orc2
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

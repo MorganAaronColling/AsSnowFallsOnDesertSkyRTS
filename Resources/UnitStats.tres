@@ -9,6 +9,7 @@ data = {
 "friction": 2.0,
 "max_health": 12.0,
 "max_speed": 275.0,
+"race": "human",
 "ranged": true
 },
 "ArcherV2": {
@@ -18,6 +19,7 @@ data = {
 "friction": 2.0,
 "max_health": 12.0,
 "max_speed": 275.0,
+"race": "human",
 "ranged": true
 },
 "ArcherV3": {
@@ -27,6 +29,7 @@ data = {
 "friction": 2.0,
 "max_health": 12.0,
 "max_speed": 275.0,
+"race": "undead",
 "ranged": true
 },
 "ArcherV4": {
@@ -36,6 +39,7 @@ data = {
 "friction": 2.0,
 "max_health": 12.0,
 "max_speed": 275.0,
+"race": "undead",
 "ranged": true
 },
 "ArcherV5": {
@@ -45,6 +49,7 @@ data = {
 "friction": 2.0,
 "max_health": 12.0,
 "max_speed": 275.0,
+"race": "elven",
 "ranged": true
 },
 "BanditV1": {
@@ -56,6 +61,7 @@ data = {
 "lifesteal": true,
 "max_health": 20.0,
 "max_speed": 250.0,
+"race": "human",
 "ranged": false,
 "sturdy": true
 },
@@ -68,6 +74,7 @@ data = {
 "lifesteal": true,
 "max_health": 30.0,
 "max_speed": 250.0,
+"race": "human",
 "ranged": false,
 "sturdy": true
 },
@@ -80,6 +87,7 @@ data = {
 "lifesteal": false,
 "max_health": 20.0,
 "max_speed": 250.0,
+"race": "feral",
 "ranged": false,
 "sturdy": true
 },
@@ -92,6 +100,7 @@ data = {
 "lifesteal": false,
 "max_health": 30.0,
 "max_speed": 250.0,
+"race": "feral",
 "ranged": false,
 "sturdy": true
 },
@@ -104,6 +113,7 @@ data = {
 "lifesteal": false,
 "max_health": 30.0,
 "max_speed": 250.0,
+"race": "feral",
 "ranged": false,
 "sturdy": true
 },
@@ -116,6 +126,7 @@ data = {
 "lifesteal": false,
 "max_health": 30.0,
 "max_speed": 250.0,
+"race": "feral",
 "ranged": false,
 "sturdy": true
 },
@@ -128,6 +139,7 @@ data = {
 "lifesteal": false,
 "max_health": 35.0,
 "max_speed": 300.0,
+"race": "knight",
 "ranged": false,
 "sturdy": false
 },
@@ -140,6 +152,7 @@ data = {
 "lifesteal": false,
 "max_health": 35.0,
 "max_speed": 300.0,
+"race": "knight",
 "ranged": false,
 "sturdy": false
 },
@@ -152,6 +165,7 @@ data = {
 "lifesteal": false,
 "max_health": 35.0,
 "max_speed": 300.0,
+"race": "knight",
 "ranged": false,
 "sturdy": false
 },
@@ -164,6 +178,7 @@ data = {
 "lifesteal": false,
 "max_health": 35.0,
 "max_speed": 300.0,
+"race": "knight",
 "ranged": false,
 "sturdy": false
 },
@@ -176,6 +191,7 @@ data = {
 "lifesteal": true,
 "max_health": 20.0,
 "max_speed": 250.0,
+"race": "orc",
 "ranged": false,
 "sturdy": true
 },
@@ -188,6 +204,7 @@ data = {
 "lifesteal": true,
 "max_health": 30.0,
 "max_speed": 250.0,
+"race": "orc",
 "ranged": false,
 "sturdy": true
 },
@@ -200,6 +217,7 @@ data = {
 "lifesteal": true,
 "max_health": 30.0,
 "max_speed": 250.0,
+"race": "orc",
 "ranged": false,
 "sturdy": true
 },
@@ -212,6 +230,7 @@ data = {
 "lifesteal": true,
 "max_health": 30.0,
 "max_speed": 250.0,
+"race": "orc",
 "ranged": false,
 "sturdy": true
 },
@@ -224,6 +243,7 @@ data = {
 "lifesteal": true,
 "max_health": 20.0,
 "max_speed": 250.0,
+"race": "undead",
 "ranged": false,
 "sturdy": true
 },
@@ -236,6 +256,7 @@ data = {
 "lifesteal": true,
 "max_health": 30.0,
 "max_speed": 250.0,
+"race": "undead",
 "ranged": false,
 "sturdy": true
 },
@@ -248,6 +269,7 @@ data = {
 "lifesteal": true,
 "max_health": 30.0,
 "max_speed": 250.0,
+"race": "undead",
 "ranged": false,
 "sturdy": true
 },
@@ -260,6 +282,7 @@ data = {
 "lifesteal": true,
 "max_health": 30.0,
 "max_speed": 250.0,
+"race": "undead",
 "ranged": false,
 "sturdy": true
 }

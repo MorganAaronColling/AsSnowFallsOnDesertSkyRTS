@@ -12,6 +12,7 @@ extends Node2D
 @onready var roundChange = $GUI/RoundChange
 @onready var upgradeSelectionControl = $GUI/UpgradeControlNode
 @onready var upgradeSelections = $GUI/UpgradeControlNode/UpgradeSelections
+@onready var activeBonusContainer = $GUI/ActiveBonusContainer
 
 var levels = preload('res://Resources/roundData.tres')
 
@@ -20,9 +21,11 @@ var started = false
 var upgradeScreenActive = false
 var round = 1
 var enemiesAdded = false
+var draggedUnit
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	update_bonus_gui()
 	var offset = 0
 	for unit in Global.startingUnits:
 		var unitPrefab : PackedScene = load('res://Prefabs/' + unit + '.tscn')
@@ -41,6 +44,18 @@ func _input(event):
 		for unit in unitListNode.get_children():
 			unit.set_selected(false)
 			portraitNode.play("default")
+			
+func update_dragged(unit, isDragged):
+	if draggedUnit == unit and !isDragged:
+		draggedUnit.set_dragged(false)
+	elif draggedUnit and draggedUnit != unit:
+		draggedUnit.set_dragged(false)
+		draggedUnit = unit
+		draggedUnit.set_dragged(true)
+	else:
+		draggedUnit = unit
+		draggedUnit.set_dragged(true)
+	
 				
 func _on_all_units_child_entered_tree(node):
 	if node.tribe == 'AI':
@@ -59,6 +74,11 @@ func _on_all_units_child_exiting_tree(node):
 	if unitList[0].is_empty():
 			await get_tree().create_timer(0.5).timeout
 			end_game()
+			
+func update_bonuses():
+	Global.unitListPlayer = unitList[0]
+	Global.check_race_bonus()
+	update_bonus_gui()
 		
 func round_start():
 	started = false
@@ -70,6 +90,8 @@ func round_start():
 	var tween = create_tween()
 	tween.tween_property(roundChange, "modulate", Color(1, 1, 1, 0), 3)
 	tween.tween_callback(reset_round_change)
+	update_bonuses()
+	show_upgrade_menu()
 
 func end_round():
 	enemiesAdded = false
@@ -80,8 +102,7 @@ func end_round():
 	var tween = create_tween()
 	tween.tween_property(roundChange, "modulate", Color(1, 1, 1, 0), 3)
 	tween.tween_callback(start_next_round_pregame)
-	if round == 2:
-		show_upgrade_menu()
+	update_bonuses()
 	
 func reset_round_change():
 	roundChange.visible = false
@@ -131,6 +152,7 @@ func _on_start_round_pressed():
 			unit.set_dragged(false)
 			unit.pregameTween.pause()
 			unit.set_selected(false)
+		update_bonuses()
 		
 func spawn_enemies():
 	for enemy in levels.data['LevelData'][round - 1]:
@@ -155,11 +177,20 @@ func hide_upgrade_menu():
 	upgradeScreenActive = false
 	for option in upgradeSelections.get_children():
 		option.queue_free()
+	update_bonuses()
 	
 func spawn_ally(ally):
 	hide_upgrade_menu()
 	var new_ally = ally.instantiate()
 	new_ally.global_position = Vector2(375, 250)
+	new_ally.starter_unit = false
 	unitListNode.add_child(new_ally, true)
+	
+func update_bonus_gui():
+	for bonus in activeBonusContainer.get_children():
+		if Global.activeBonuses.has(bonus.name.split('Bonus', true)[0]):
+			bonus.visible = true
+		else:
+			bonus.visible = false
 	
 

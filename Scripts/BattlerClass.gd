@@ -20,6 +20,7 @@ var bloodEffect = preload("res://Prefabs/blood_effect.tscn")
 @onready var Game = get_node('../../')
 
 # Stats
+var drag_acceleration: int = 1000
 var max_speed: int
 var acceleration: int
 var friction: float
@@ -42,6 +43,7 @@ var pregameTween: Tween
 var attack_target: CharacterBody2D
 var dragged: bool = false
 var attacked: bool = false
+var starter_unit: bool = true
 
 # Abilities
 var cleave: bool = false
@@ -69,7 +71,7 @@ var state = IDLE
 func update_stats():
 	var data = unitStats.data[name.split('-', true)[0]]
 	# BASE STATS
-	#race = data.race
+	race = data.race
 	max_speed = data.max_speed
 	acceleration = data.acceleration
 	friction = data.friction
@@ -91,6 +93,10 @@ func _ready():
 	pregameTween = get_pre_start_tween()
 	if tribe == 'AI':
 		pregameTween.play()
+	else:
+		if !starter_unit:
+			Game.update_bonuses()
+	
 	
 func _physics_process(delta):
 	if Game.started:
@@ -188,9 +194,9 @@ func _on_selection_area_input_event(viewport, event, shape_idx):
 		else:
 			set_selected(false)
 	elif event.is_action_pressed('right_click') and !Game.started and tribe == 'Player':
-		set_dragged(true)
+		Game.update_dragged(self, true)
 	elif event.is_action_released("right_click") and !Game.started and tribe == 'Player':
-		set_dragged(false)
+		Game.update_dragged(self, false)
 		
 func set_dragged(is_dragged):
 	dragged = is_dragged
@@ -257,7 +263,8 @@ func _on_animated_sprite_2d_animation_finished():
 		var tween = create_tween()
 		tween.tween_property(self, "modulate", Color(0, 0, 0, 0), 0.2)
 		await get_tree().create_timer(0.2).timeout
-		queue_free()
+		if tribe != 'Player':
+			queue_free()
 		
 func enter_surround_state():
 	attackArea.monitoring = false
@@ -294,7 +301,7 @@ func deal_damage():
 						attacked = true
 						break
 					if lifesteal:
-						heal(attack_damage)
+						heal(attack_damage / 2)
 			attacked = true
 		else:
 			pass
