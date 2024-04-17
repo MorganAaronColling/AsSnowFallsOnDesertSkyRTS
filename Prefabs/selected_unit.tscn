@@ -1,10 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://0brahw6q5j6s"]
+[gd_scene load_steps=2 format=3 uid="uid://0brahw6q5j6s"]
 
-[ext_resource type="Texture2D" uid="uid://d3rim4u44q5v2" path="res://UnitSprites/16x16 knight 1 v3-icon.png" id="1_5phpm"]
 [ext_resource type="Script" path="res://Scripts/SelectedUnit.gd" id="2_khxgr"]
 
 [node name="SelectedUnit" type="TextureButton"]
-texture_normal = ExtResource("1_5phpm")
 script = ExtResource("2_khxgr")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

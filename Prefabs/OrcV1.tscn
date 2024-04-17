@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://chhcayn5g2gyx"]
 
 [ext_resource type="Script" path="res://Scripts/BattlerClass.gd" id="1_3s2it"]
-[ext_resource type="SpriteFrames" uid="uid://b88rlypka6lis" path="res://SpriteFrames/OrcSpriteFrames.tres" id="2_r7jml"]
+[ext_resource type="SpriteFrames" uid="uid://b88rlypka6lis" path="res://SpriteFrames/OrcV1SpriteFrames.tres" id="2_r7jml"]
 [ext_resource type="PackedScene" uid="uid://dxf5na44dsstl" path="res://Prefabs/health_bar_control.tscn" id="3_dl33e"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pkavw"]

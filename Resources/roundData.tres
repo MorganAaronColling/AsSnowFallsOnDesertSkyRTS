@@ -30,5 +30,37 @@ data = {
 "Type": "res://Prefabs/OrcV2.tscn",
 "X": 320.0,
 "Y": 290.0
+}], [{
+"Type": "res://Prefabs/OrcV2.tscn",
+"X": 300.0,
+"Y": 300.0
+}, {
+"Type": "res://Prefabs/OrcV2.tscn",
+"X": 320.0,
+"Y": 290.0
+}, {
+"Type": "res://Prefabs/OrcV3.tscn",
+"X": 300.0,
+"Y": 290.0
+}], [{
+"Type": "res://Prefabs/OrcV2.tscn",
+"X": 300.0,
+"Y": 300.0
+}, {
+"Type": "res://Prefabs/OrcV2.tscn",
+"X": 320.0,
+"Y": 290.0
+}, {
+"Type": "res://Prefabs/OrcV3.tscn",
+"X": 300.0,
+"Y": 290.0
+}, {
+"Type": "res://Prefabs/OrcV1.tscn",
+"X": 320.0,
+"Y": 300.0
+}, {
+"Type": "res://Prefabs/OrcV3.tscn",
+"X": 330.0,
+"Y": 290.0
 }]]
 }

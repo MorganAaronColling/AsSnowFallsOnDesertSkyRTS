@@ -2,11 +2,6 @@ extends Node2D
 
 @export var option : PackedScene
 
-@export var orc1 : PackedScene
-@export var orc2 : PackedScene
-@export var knight1 : PackedScene
-@export var archer2 : PackedScene
-
 @onready var unitListNode = $AllUnits
 @onready var portraitNode = $GUI/Portrait
 @onready var roundChange = $GUI/RoundChange

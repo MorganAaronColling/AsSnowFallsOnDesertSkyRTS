@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://b23i36rxpgpe1"]
 
 [ext_resource type="Script" path="res://Scripts/BattlerClassRanged.gd" id="1_bdvpc"]
-[ext_resource type="SpriteFrames" uid="uid://0igujk0dnvna" path="res://SpriteFrames/ArcherSpriteFrames.tres" id="1_d0olx"]
+[ext_resource type="SpriteFrames" uid="uid://0igujk0dnvna" path="res://SpriteFrames/ArcherV2SpriteFrames.tres" id="1_d0olx"]
 [ext_resource type="PackedScene" uid="uid://c75kwck4y5dx7" path="res://Prefabs/arrow.tscn" id="2_iw0ki"]
 [ext_resource type="PackedScene" uid="uid://dxf5na44dsstl" path="res://Prefabs/health_bar_control.tscn" id="4_d6i7n"]
 

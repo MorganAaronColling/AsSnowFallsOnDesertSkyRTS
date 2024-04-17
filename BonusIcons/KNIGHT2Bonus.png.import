@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3rim4u44q5v2"
-path="res://.godot/imported/16x16 knight 1 v3-icon.png-f7ca5679c8e5c78996a68fb98189a8f7.ctex"
+uid="uid://bglpbvkf2ljv4"
+path="res://.godot/imported/KNIGHT2Bonus.png-5da12a4352381c17a19a408d35e28c1f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UnitSprites/16x16 knight 1 v3-icon.png"
-dest_files=["res://.godot/imported/16x16 knight 1 v3-icon.png-f7ca5679c8e5c78996a68fb98189a8f7.ctex"]
+source_file="res://BonusIcons/KNIGHT2Bonus.png"
+dest_files=["res://.godot/imported/KNIGHT2Bonus.png-5da12a4352381c17a19a408d35e28c1f.ctex"]
 
 [params]
 

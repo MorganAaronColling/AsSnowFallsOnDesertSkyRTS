@@ -4,9 +4,7 @@ var chosen = false
 var unit
 
 func _ready():
-	if unit == 'KnightV1':
-		texture_normal = load('res://UnitSprites/16x16 knight 1 v3-icon.png')
-	elif unit == 'ArcherV1':
+	if unit == 'ArcherV1':
 		texture_normal = load('res://UnitSprites/Archer2/Archer2_idle_0.png')
 	elif unit == 'ArcherV2':
 		texture_normal = load('res://UnitSprites/Archer1/Archer1_idle_0.png')

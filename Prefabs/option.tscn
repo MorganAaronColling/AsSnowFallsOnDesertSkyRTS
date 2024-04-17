@@ -1,12 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dffe73vgwoeb2"]
+[gd_scene load_steps=2 format=3 uid="uid://dffe73vgwoeb2"]
 
-[ext_resource type="Texture2D" uid="uid://5eqo3ra2ws14" path="res://UnitSprites/Archer2/Archer2_idle_0.png" id="1_b5dol"]
 [ext_resource type="Script" path="res://Scripts/OptionClass.gd" id="2_5qofb"]
 
 [node name="Option" type="TextureButton"]
 offset_right = 32.0
 offset_bottom = 32.0
-texture_normal = ExtResource("1_b5dol")
 stretch_mode = 5
 script = ExtResource("2_5qofb")
 
