@@ -1,11 +1,48 @@
-[gd_scene load_steps=2 format=3 uid="uid://dffe73vgwoeb2"]
+[gd_scene load_steps=6 format=3 uid="uid://dffe73vgwoeb2"]
 
+[ext_resource type="Theme" uid="uid://d2777ig7wdbi1" path="res://GameTheme.tres" id="1_2uomc"]
 [ext_resource type="Script" path="res://Scripts/OptionClass.gd" id="2_5qofb"]
+[ext_resource type="Texture2D" uid="uid://c0i223xgls8ay" path="res://Cards/CARDBasic.png" id="3_ccmee"]
+[ext_resource type="SpriteFrames" uid="uid://demcl1in3xll" path="res://SpriteFrames/ArcherV1SpriteFrames.tres" id="4_ts2y0"]
+[ext_resource type="FontFile" uid="uid://bvmpqynvw34ac" path="res://GUI/joystix monospace.otf" id="5_33wbl"]
 
-[node name="Option" type="TextureButton"]
-offset_right = 32.0
-offset_bottom = 32.0
-stretch_mode = 5
+[node name="Option" type="Button"]
+modulate = Color(1.2, 1.2, 1.3, 1)
+offset_left = -16.0
+offset_top = -24.0
+offset_right = 16.0
+offset_bottom = 24.0
+scale = Vector2(2, 2)
+pivot_offset = Vector2(16, 24)
+tooltip_text = "TEST"
+theme = ExtResource("1_2uomc")
+theme_override_font_sizes/font_size = 14
+text = "te"
 script = ExtResource("2_5qofb")
+
+[node name="CardBack" type="Sprite2D" parent="."]
+position = Vector2(16, 24)
+texture = ExtResource("3_ccmee")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(17, 8)
+sprite_frames = ExtResource("4_ts2y0")
+animation = &"idle"
+
+[node name="RaceClass" type="Label" parent="."]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 28.0
+offset_right = 263.0
+offset_bottom = 178.0
+scale = Vector2(0.1, 0.1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("5_33wbl")
+theme_override_font_sizes/font_size = 32
+text = "Orc
+Protector"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -1,20 +1,9 @@
-[gd_scene load_steps=42 format=3 uid="uid://cfv10u1jup6ra"]
+[gd_scene load_steps=40 format=3 uid="uid://cfv10u1jup6ra"]
 
 [ext_resource type="Script" path="res://Scripts/game.gd" id="1_r2xw5"]
-[ext_resource type="SpriteFrames" uid="uid://b88rlypka6lis" path="res://SpriteFrames/OrcV1SpriteFrames.tres" id="2_pbfx5"]
-[ext_resource type="Texture2D" uid="uid://bjujlr7kuoyhl" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)1.png" id="2_tgpaq"]
-[ext_resource type="Texture2D" uid="uid://rpl5xnymwp0y" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)2.png" id="3_ppo74"]
-[ext_resource type="Texture2D" uid="uid://dik3c6loeyvwt" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)3.png" id="4_0c2wi"]
+[ext_resource type="Texture2D" uid="uid://5yffkq8ji0yx" path="res://Gem_6.png" id="3_1xke7"]
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="4_ikipi"]
-[ext_resource type="Texture2D" uid="uid://ca5w0b5yfu7lp" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)4.png" id="5_dumot"]
 [ext_resource type="PackedScene" uid="uid://dffe73vgwoeb2" path="res://Prefabs/option.tscn" id="5_uiqwd"]
-[ext_resource type="Texture2D" uid="uid://ks5urtyx2kp8" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)5.png" id="6_kib3g"]
-[ext_resource type="Texture2D" uid="uid://ddaj5cf0wpkc5" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)6.png" id="7_j5v8v"]
-[ext_resource type="Texture2D" uid="uid://1835apy78j47" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)7.png" id="8_ch4xx"]
-[ext_resource type="Texture2D" uid="uid://bh6ele1dbbh8d" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)8.png" id="9_vsn5e"]
-[ext_resource type="Texture2D" uid="uid://dpckns4b480c2" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)9.png" id="10_ph2yt"]
-[ext_resource type="Texture2D" uid="uid://cf62nansbxhmu" path="res://GUI/SpritesGUI/BreakWithBorder/Break(WithBorder)10.png" id="11_mc1ml"]
-[ext_resource type="FontFile" uid="uid://bvmpqynvw34ac" path="res://GUI/joystix monospace.otf" id="13_6p50q"]
 [ext_resource type="Texture2D" uid="uid://cvmg0y5fhifc8" path="res://GUI/Pause.png" id="14_ocq0t"]
 [ext_resource type="Texture2D" uid="uid://5qbkpgqhq6nk" path="res://GUI/Chevron-Arrow-Right.png" id="15_2wmrp"]
 [ext_resource type="Texture2D" uid="uid://b57kial6jnqb2" path="res://GUI/Double-Chevron-Arrow-Right.png" id="15_3xfkp"]
@@ -26,66 +15,22 @@
 [ext_resource type="Script" path="res://Scripts/StormBackgroundOverlay.gd" id="25_csiu3"]
 [ext_resource type="Texture2D" uid="uid://cyf4k7w55apxt" path="res://BonusIcons/ORC2Bonus.png" id="25_u8rh2"]
 [ext_resource type="Texture2D" uid="uid://dwm21nv0kcd1l" path="res://BonusIcons/UNDEAD1Bonus.png" id="26_x3hsx"]
+[ext_resource type="Texture2D" uid="uid://dnthi8cpxt0kh" path="res://BonusIcons/HUMAN1Bonus.png" id="27_wyug3"]
 [ext_resource type="Texture2D" uid="uid://n5q1ir7d4fow" path="res://BonusIcons/UNDEAD2Bonus.png" id="28_ifc4p"]
+[ext_resource type="Texture2D" uid="uid://bdpp6tv56yyq1" path="res://BonusIcons/HUMAN2Bonus.png" id="28_sa4bk"]
 [ext_resource type="Texture2D" uid="uid://bqf3nk216nq0w" path="res://BonusIcons/KNIGHT1Bonus.png" id="29_080bs"]
+[ext_resource type="Texture2D" uid="uid://bik6gjadl08en" path="res://BonusIcons/FERAL1Bonus.png" id="29_fa40c"]
 [ext_resource type="Texture2D" uid="uid://bglpbvkf2ljv4" path="res://BonusIcons/KNIGHT2Bonus.png" id="30_eq4gi"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_jph56"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_h6pmd"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_tgpaq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_ppo74")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_0c2wi")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_dumot")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_kib3g")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_j5v8v")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_ch4xx")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_vsn5e")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_ph2yt")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_mc1ml")
-}],
-"loop": false,
-"name": &"break",
-"speed": 8.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_tgpaq")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="LabelSettings" id="LabelSettings_yw2q6"]
-font = ExtResource("13_6p50q")
-font_color = Color(0.878431, 0.207843, 0.376471, 1)
-outline_size = 7
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="Theme" id="Theme_6mbjk"]
-default_font = ExtResource("13_6p50q")
+[ext_resource type="Texture2D" uid="uid://deqtro58ekjna" path="res://BonusIcons/FERAL2Bonus.png" id="30_qvq0c"]
+[ext_resource type="Texture2D" uid="uid://b756uhus0xy4" path="res://BonusIcons/ELVEN1Bonus.png" id="31_w6vcp"]
+[ext_resource type="Texture2D" uid="uid://bpdponattpssb" path="res://BonusIcons/PROTECTOR1Bonus.png" id="32_4in12"]
+[ext_resource type="Texture2D" uid="uid://ceartl53mr4e1" path="res://BonusIcons/PROTECTOR2Bonus.png" id="33_vj2tg"]
+[ext_resource type="Texture2D" uid="uid://beog5k58st6rt" path="res://BonusIcons/RANGER1Bonus.png" id="34_ky27s"]
+[ext_resource type="Texture2D" uid="uid://8wern1wysns3" path="res://BonusIcons/RANGER2Bonus.png" id="35_e68mb"]
+[ext_resource type="Texture2D" uid="uid://b6hppw0msldbl" path="res://BonusIcons/ROGUE1Bonus.png" id="36_2bh37"]
+[ext_resource type="Texture2D" uid="uid://c5dfr402qo82r" path="res://BonusIcons/ROGUE2Bonus.png" id="37_piohc"]
+[ext_resource type="Texture2D" uid="uid://c03v475kt8m0" path="res://BonusIcons/WARRIOR1Bonus.png" id="38_v1nk7"]
+[ext_resource type="Texture2D" uid="uid://0s2jhsmp473a" path="res://BonusIcons/WARRIOR2Bonus.png" id="39_hpsaa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2lrfm"]
 texture = ExtResource("24_i1j22")
@@ -1782,8 +1727,30 @@ option = ExtResource("5_uiqwd")
 [node name="GUI" type="CanvasLayer" parent="."]
 process_mode = 3
 
+[node name="GemControlNode" type="Control" parent="GUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GemSprite" type="Sprite2D" parent="GUI/GemControlNode"]
+position = Vector2(1112.9, 657.65)
+scale = Vector2(10, 10)
+texture = ExtResource("3_1xke7")
+
+[node name="GemCounter" type="Label" parent="GUI/GemControlNode"]
+offset_left = 1073.0
+offset_top = 640.0
+offset_right = 1153.0
+offset_bottom = 679.0
+theme = ExtResource("24_3ghek")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 32
+text = "999"
+horizontal_alignment = 1
+
 [node name="UpgradeControlNode" type="Control" parent="GUI"]
-visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -1792,47 +1759,37 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ScaleNode" type="Control" parent="GUI/UpgradeControlNode"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 scale = Vector2(5, 5)
 
-[node name="BlurBackground" type="TextureRect" parent="GUI/UpgradeControlNode"]
-modulate = Color(0.117647, 0.117647, 0.117647, 0.662745)
+[node name="UpgradeSelections" type="HBoxContainer" parent="GUI/UpgradeControlNode/ScaleNode"]
 layout_mode = 0
-offset_left = -137.0
-offset_top = -81.0
-offset_right = 151.0
-offset_bottom = 94.0
-texture = SubResource("CanvasTexture_jph56")
+offset_left = -128.0
+offset_top = 26.6
+offset_right = 128.0
+offset_bottom = 75.6
+theme_override_constants/separation = 8
+alignment = 1
 
-[node name="UpgradeSelections" type="BoxContainer" parent="GUI/UpgradeControlNode"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 0
+[node name="UpgradeUnitPool" type="Button" parent="GUI"]
+offset_left = 1176.0
+offset_top = 630.0
+offset_right = 1277.0
+offset_bottom = 658.0
+theme = ExtResource("24_3ghek")
+text = "Upgrade"
 
-[node name="SelectedUnit" type="AnimatedSprite2D" parent="GUI"]
-position = Vector2(63, 52)
-scale = Vector2(2, 2)
-sprite_frames = ExtResource("2_pbfx5")
-animation = &"attack"
-
-[node name="Portrait" type="AnimatedSprite2D" parent="GUI"]
-position = Vector2(64, 63)
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_h6pmd")
-autoplay = "default"
-
-[node name="Health" type="Label" parent="GUI"]
-offset_left = 28.0
-offset_top = 109.0
-offset_right = 95.0
-offset_bottom = 129.0
-text = "15/15"
-label_settings = SubResource("LabelSettings_yw2q6")
+[node name="RefreshShop" type="Button" parent="GUI"]
+offset_left = 1177.0
+offset_top = 660.0
+offset_right = 1278.0
+offset_bottom = 688.0
+theme = ExtResource("24_3ghek")
+text = "Refresh"
 
 [node name="RoundChange" type="Label" parent="GUI"]
 anchors_preset = 8
@@ -1851,6 +1808,7 @@ label_settings = ExtResource("15_k43o7")
 horizontal_alignment = 1
 
 [node name="PlayPause" type="TextureButton" parent="GUI"]
+visible = false
 offset_left = 1206.0
 offset_top = 7.0
 offset_right = 1234.0
@@ -1871,47 +1829,43 @@ texture_pressed = ExtResource("15_3xfkp")
 stretch_mode = 5
 
 [node name="StartRound" type="Button" parent="GUI"]
-offset_left = 1145.0
-offset_top = 5.0
-offset_right = 1203.0
-offset_bottom = 37.0
-theme = SubResource("Theme_6mbjk")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 20
-text = "GO!"
-flat = true
+offset_left = 1190.0
+offset_top = 690.0
+offset_right = 1278.0
+offset_bottom = 718.0
+theme = ExtResource("24_3ghek")
+text = "READY!"
 
 [node name="ActiveBonusContainer" type="GridContainer" parent="GUI"]
-offset_left = 121.0
+modulate = Color(1.15, 1.3, 1.3, 1)
+offset_left = 18.0
 offset_top = 21.0
-offset_right = 177.0
-offset_bottom = 57.0
+offset_right = 114.0
+offset_bottom = 97.0
 scale = Vector2(2, 2)
-columns = 3
+columns = 5
 
 [node name="Orc1Bonus" type="TextureRect" parent="GUI/ActiveBonusContainer"]
 layout_mode = 2
-tooltip_text = "Orcs (2): All unit's health pools are increased by 10%"
+tooltip_text = "Orcs (2): All units' health pools are increased by 10%"
 theme = ExtResource("24_3ghek")
 texture = ExtResource("24_xrft7")
 
 [node name="Orc2Bonus" type="TextureRect" parent="GUI/ActiveBonusContainer"]
 layout_mode = 2
-tooltip_text = "(4) Orcs, all unit's health pools are increased by a further 10%"
+tooltip_text = "(4) Orcs, all units' health pools are increased by a further 10%"
 theme = ExtResource("24_3ghek")
 texture = ExtResource("25_u8rh2")
 
 [node name="Undead1Bonus" type="TextureRect" parent="GUI/ActiveBonusContainer"]
 layout_mode = 2
-tooltip_text = "(2) Undeads, all unit's attack damage are increased by 25%"
+tooltip_text = "(2) Undeads, all units' attack damage are increased by 10%"
 theme = ExtResource("24_3ghek")
 texture = ExtResource("26_x3hsx")
 
 [node name="Undead2Bonus" type="TextureRect" parent="GUI/ActiveBonusContainer"]
 layout_mode = 2
-tooltip_text = "(4) Undeads, all units attack damage are increased by a further 25%"
+tooltip_text = "(4) Undeads, all units' attack damage are increased by 25%"
 theme = ExtResource("24_3ghek")
 texture = ExtResource("28_ifc4p")
 
@@ -1926,6 +1880,85 @@ layout_mode = 2
 tooltip_text = "(4) Knights, all units gain sturdy"
 theme = ExtResource("24_3ghek")
 texture = ExtResource("30_eq4gi")
+
+[node name="Human1Bonus" type="TextureRect" parent="GUI/ActiveBonusContainer"]
+layout_mode = 2
+tooltip_text = "(2) Humans, all units gain 5% attack speed"
+theme = ExtResource("24_3ghek")
+texture = ExtResource("27_wyug3")
+
+[node name="Human2Bonus" type="TextureRect" parent="GUI/ActiveBonusContainer"]
+layout_mode = 2
+tooltip_text = "(4) Humans, all units gain 10% attack speed"
+theme = ExtResource("24_3ghek")
+texture = ExtResource("28_sa4bk")
+
+[node name="Feral1Bonus" type="TextureRect" parent="GUI/ActiveBonusContainer"]
+layout_mode = 2
+tooltip_text = "(2) Ferals, all ferals gain lifesteal"
+theme = ExtResource("24_3ghek")
+texture = ExtResource("29_fa40c")
+
+[node name="Feral2Bonus" type="TextureRect" parent="GUI/ActiveBonusContainer"]
+layout_mode = 2
+tooltip_text = "(2) Ferals, all units gain lifesteal"
+theme = ExtResource("24_3ghek")
+texture = ExtResource("30_qvq0c")
+
+[node name="Elven1Bonus" type="TextureRect" parent="GUI/ActiveBonusContainer"]
+layout_mode = 2
+tooltip_text = "(1) Elven, Elven Archer gains arrow burst attack"
+theme = ExtResource("24_3ghek")
+texture = ExtResource("31_w6vcp")
+
+[node name="Protector1Bonus" type="TextureRect" parent="GUI/ActiveBonusContainer"]
+layout_mode = 2
+tooltip_text = "(2) Protectors"
+theme = ExtResource("24_3ghek")
+texture = ExtResource("32_4in12")
+expand_mode = 1
+
+[node name="Protector2Bonus" type="TextureRect" parent="GUI/ActiveBonusContainer"]
+layout_mode = 2
+tooltip_text = "(4) Protectors"
+theme = ExtResource("24_3ghek")
+texture = ExtResource("33_vj2tg")
+
+[node name="Ranger1Bonus" type="TextureRect" parent="GUI/ActiveBonusContainer"]
+layout_mode = 2
+tooltip_text = "(2) Rangers"
+theme = ExtResource("24_3ghek")
+texture = ExtResource("34_ky27s")
+
+[node name="Ranger2Bonus" type="TextureRect" parent="GUI/ActiveBonusContainer"]
+layout_mode = 2
+tooltip_text = "(4) Rangers"
+theme = ExtResource("24_3ghek")
+texture = ExtResource("35_e68mb")
+
+[node name="Rogue1Bonus" type="TextureRect" parent="GUI/ActiveBonusContainer"]
+layout_mode = 2
+tooltip_text = "(2) Rogues"
+theme = ExtResource("24_3ghek")
+texture = ExtResource("36_2bh37")
+
+[node name="Rogue2Bonus" type="TextureRect" parent="GUI/ActiveBonusContainer"]
+layout_mode = 2
+tooltip_text = "(4) Rogues"
+theme = ExtResource("24_3ghek")
+texture = ExtResource("37_piohc")
+
+[node name="Warrior1Bonus" type="TextureRect" parent="GUI/ActiveBonusContainer"]
+layout_mode = 2
+tooltip_text = "(2) Warriors"
+theme = ExtResource("24_3ghek")
+texture = ExtResource("38_v1nk7")
+
+[node name="Warrior2Bonus" type="TextureRect" parent="GUI/ActiveBonusContainer"]
+layout_mode = 2
+tooltip_text = "(4) Warriors"
+theme = ExtResource("24_3ghek")
+texture = ExtResource("39_hpsaa")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_wheup")
@@ -2000,7 +2033,7 @@ position = Vector2(-1.35942e-05, 311)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_bnf87")
 
-[connection signal="visibility_changed" from="GUI/Portrait" to="." method="_on_portrait_visibility_changed"]
+[connection signal="pressed" from="GUI/RefreshShop" to="." method="_on_refresh_shop_pressed"]
 [connection signal="toggled" from="GUI/PlayPause" to="." method="_on_play_pause_toggled"]
 [connection signal="toggled" from="GUI/Speed" to="." method="_on_speed_toggled"]
 [connection signal="pressed" from="GUI/StartRound" to="." method="_on_start_round_pressed"]

@@ -3,10 +3,9 @@ extends Node2D
 @export var option : PackedScene
 
 @onready var unitListNode = $AllUnits
-@onready var portraitNode = $GUI/Portrait
 @onready var roundChange = $GUI/RoundChange
 @onready var upgradeSelectionControl = $GUI/UpgradeControlNode
-@onready var upgradeSelections = $GUI/UpgradeControlNode/UpgradeSelections
+@onready var upgradeSelections = $GUI/UpgradeControlNode/ScaleNode/UpgradeSelections
 @onready var activeBonusContainer = $GUI/ActiveBonusContainer
 
 var levels = preload('res://Resources/roundData.tres')
@@ -17,6 +16,7 @@ var upgradeScreenActive = false
 var round = 1
 var enemiesAdded = false
 var draggedUnit
+var frozen = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,26 +32,23 @@ func _ready():
 	for unit in unitListNode.get_children():
 		unit.set_selected(false)
 		unit.attack_target = unit.get_enemy_target(unitList)
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _input(event):
-	if event.is_action_pressed('left_click'):
-		for unit in unitListNode.get_children():
-			unit.set_selected(false)
-			portraitNode.play("default")
+	update_gem_counter()
+		
+func update_gem_counter():
+	$GUI/GemControlNode/GemCounter.text = str(Global.gems)
 			
 func update_dragged(unit, isDragged):
 	if draggedUnit == unit and !isDragged:
 		draggedUnit.set_dragged(false)
 	elif draggedUnit and draggedUnit != unit:
-		draggedUnit.set_dragged(false)
+		if is_instance_valid(draggedUnit):
+			draggedUnit.set_dragged(false)
 		draggedUnit = unit
 		draggedUnit.set_dragged(true)
 	else:
 		draggedUnit = unit
 		draggedUnit.set_dragged(true)
-	
-				
+			
 func _on_all_units_child_entered_tree(node):
 	if node.tribe == 'AI':
 		unitList[1].append(node)
@@ -72,7 +69,7 @@ func _on_all_units_child_exiting_tree(node):
 			
 func update_bonuses():
 	Global.unitListPlayer = unitList[0]
-	Global.check_race_bonus()
+	Global.check_race_and_class_bonus()
 	update_bonus_gui()
 		
 func round_start():
@@ -86,7 +83,7 @@ func round_start():
 	tween.tween_property(roundChange, "modulate", Color(1, 1, 1, 0), 3)
 	tween.tween_callback(reset_round_change)
 	update_bonuses()
-	show_upgrade_menu()
+	refresh_upgrade_menu()
 
 func end_round():
 	enemiesAdded = false
@@ -98,6 +95,8 @@ func end_round():
 	tween.tween_property(roundChange, "modulate", Color(1, 1, 1, 0), 3)
 	tween.tween_callback(start_next_round_pregame)
 	update_bonuses()
+	Global.gems += 5
+	update_gem_counter()
 	
 func reset_round_change():
 	roundChange.visible = false
@@ -126,18 +125,6 @@ func _on_speed_toggled(toggled_on):
 		Engine.time_scale = 1
 	else:
 		Engine.time_scale = 1.25
-		
-func show_options_menu():
-	pass
-	
-func hide_options_menu():
-	pass
-
-func _on_portrait_visibility_changed():
-	if portraitNode and portraitNode.visible:
-		show_options_menu()
-	else:
-		hide_options_menu()
 
 func _on_start_round_pressed():
 	if !upgradeScreenActive and enemiesAdded:
@@ -158,24 +145,21 @@ func spawn_enemies():
 		unitListNode.add_child(enemyInstance, true)
 	enemiesAdded = true
 			
-func show_upgrade_menu():
-	upgradeSelectionControl.visible = true
-	upgradeScreenActive = true
-	for i in 3:
-		var o = option.instantiate()
-		upgradeSelections.add_child(o, true)
-	upgradeSelections.size = Vector2(192, 64)
-	upgradeSelections.position = Vector2(-96, -32)
-		
-func hide_upgrade_menu():
-	upgradeSelectionControl.visible = false
-	upgradeScreenActive = false
-	for option in upgradeSelections.get_children():
-		option.queue_free()
-	update_bonuses()
+func refresh_upgrade_menu():
+	if !frozen:
+		for option in upgradeSelections.get_children():
+			option.queue_free()
+		await get_tree().create_timer(0,1).timeout
+		for i in 3:
+			var o = option.instantiate()
+			upgradeSelections.add_child(o, true)
+			
+func update_upgrade_menu_on_select(option_selected):
+	option_selected.queue_free()
+	var o = option.instantiate()
+	upgradeSelections.add_child(o, true)
 	
 func spawn_ally(ally):
-	hide_upgrade_menu()
 	var new_ally = ally.instantiate()
 	new_ally.global_position = Vector2(375, 250)
 	new_ally.starter_unit = false
@@ -188,4 +172,8 @@ func update_bonus_gui():
 		else:
 			bonus.visible = false
 	
-
+func _on_refresh_shop_pressed():
+	if (Global.gems >= 1 and !unitList[0].is_empty()) or Global.gems >= 4:
+		Global.gems -= 1
+		update_gem_counter()
+		refresh_upgrade_menu()

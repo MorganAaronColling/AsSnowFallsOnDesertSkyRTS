@@ -14,9 +14,6 @@ var bloodEffect = preload("res://Prefabs/blood_effect.tscn")
 @onready var attackArea = $UnitPivot/AttackArea
 @onready var attackDelayTimer = $AttackDelayTimer
 @onready var healthBar = $HealthBarControl/HealthBar
-@onready var GUIPortraitAnimation = get_node('../../GUI/SelectedUnit')
-@onready var GUIHealth = get_node('../../GUI/Health')
-@onready var GUIPortraitBackground = get_node('../../GUI/Portrait')
 @onready var Game = get_node('../../')
 
 # Stats
@@ -32,6 +29,8 @@ var surround_timer_delay_melee = randf_range(0.25, 0.5)
 var surround_timer_delay_ranged = randf_range(0.5, 0.75)
 var health
 var race
+var unit_class
+var attack_speed
 
 # Misc
 @export var tribe: String
@@ -44,6 +43,7 @@ var attack_target: CharacterBody2D
 var dragged: bool = false
 var attacked: bool = false
 var starter_unit: bool = true
+var standard_attack_fps = 8
 
 # Abilities
 var cleave: bool = false
@@ -71,6 +71,9 @@ var state = IDLE
 func update_stats():
 	var data = unitStats.data[name.split('-', true)[0]]
 	# BASE STATS
+	attack_speed = data.attack_speed
+	BattlerAnimation.sprite_frames.set_animation_speed('attack', attack_speed * standard_attack_fps)
+	unit_class = data.class
 	race = data.race
 	max_speed = data.max_speed
 	acceleration = data.acceleration
@@ -143,12 +146,13 @@ func get_radius_range_circle_position():
 			return randi_range(20, 40)
 		else:
 			return randi_range(20, 80)
+			
+func add_knockback(knockback_direction, knockback_scale):
+	velocity += knockback_direction * max_speed * knockback_scale
 		
 func _on_animated_sprite_2d_animation_changed():
 	if BattlerAnimation and BattlerAnimationShadow:
 		BattlerAnimationShadow.play(BattlerAnimation.animation)
-	if selected:
-		GUIPortraitAnimation.play(BattlerAnimation.animation)
 	
 func set_facing_direction() -> void:
 	if attack_target.global_position.x < global_position.x:
@@ -166,34 +170,21 @@ func move_to_position(target_position, delta):
 	var direction = (target_position - global_position).normalized()
 	velocity += direction * acceleration * delta
 	avoid_obstacles()
-	move_and_slide()
 	
 func apply_friction(delta: float) -> void:
 	velocity -= velocity * friction * delta
+	move_and_slide()
 	
 func set_selected(is_selected):
 	selected = is_selected
 	if selected:
 		selectionTween.play()
-		GUIPortraitAnimation.visible = true
-		GUIPortraitAnimation.sprite_frames = BattlerAnimation.sprite_frames
-		GUIPortraitAnimation.play(BattlerAnimation.animation)
-		GUIHealth.text = str(health) + '/' + str(max_health)
-		GUIHealth.visible = true
-		GUIPortraitBackground.play('default')
 	else:
-		GUIPortraitAnimation.visible = false
-		GUIHealth.visible = false
 		selectionTween.pause()
 		BattlerAnimation.modulate = Color(1, 1, 1, 1)
 
 func _on_selection_area_input_event(viewport, event, shape_idx):
-	if event.is_action_pressed('left_click'):
-		if !selected:
-			set_selected(true)
-		else:
-			set_selected(false)
-	elif event.is_action_pressed('right_click') and !Game.started and tribe == 'Player':
+	if event.is_action_pressed('right_click') and !Game.started and tribe == 'Player':
 		Game.update_dragged(self, true)
 	elif event.is_action_released("right_click") and !Game.started and tribe == 'Player':
 		Game.update_dragged(self, false)
@@ -201,8 +192,10 @@ func _on_selection_area_input_event(viewport, event, shape_idx):
 func set_dragged(is_dragged):
 	dragged = is_dragged
 	if dragged:
+		set_selected(true)
 		BattlerAnimation.play('fall')
 	else:
+		set_selected(false)
 		BattlerAnimation.play('idle')
 		
 func get_selection_tween():
@@ -262,17 +255,17 @@ func _on_animated_sprite_2d_animation_finished():
 	if BattlerAnimation.animation == 'death':
 		var tween = create_tween()
 		tween.tween_property(self, "modulate", Color(0, 0, 0, 0), 0.2)
-		await get_tree().create_timer(0.2).timeout
-		if tribe != 'Player':
-			queue_free()
+		await get_tree().create_timer(0.5).timeout
+		queue_free()
 		
 func enter_surround_state():
-	attackArea.monitoring = false
-	state = SURROUND
-	if is_instance_valid(attack_target) and attack_target.is_in_group('Ranged'):
-		SurroundTimer.start(surround_timer_delay_ranged)
-	else:
-		SurroundTimer.start(surround_timer_delay_melee)
+	if state != DEAD:
+		attackArea.monitoring = false
+		state = SURROUND
+		if is_instance_valid(attack_target) and attack_target.is_in_group('Ranged'):
+			SurroundTimer.start(surround_timer_delay_ranged)
+		else:
+			SurroundTimer.start(surround_timer_delay_melee)
 		
 func get_circle_position(circle_centre, radius):
 	var angle
@@ -296,7 +289,7 @@ func deal_damage():
 			for area in attackArea.get_overlapping_areas():
 				var parent = area.get_parent()
 				if area.is_in_group('Unit') and parent != self and parent.tribe != tribe:
-					parent.take_damage(attack_damage, false)
+					parent.take_damage(attack_damage, false, global_position, 0.1)
 					if !cleave:
 						attacked = true
 						break
@@ -306,7 +299,7 @@ func deal_damage():
 		else:
 			pass
 			
-func take_damage(damage, ranged):
+func take_damage(damage, ranged, attack_direction, knockback_scale):
 	var chance = randf()
 	if state != DEAD and state != BLOCK and !ranged:
 		if chance < 0.25 and !isRangedUnit:
@@ -316,37 +309,28 @@ func take_damage(damage, ranged):
 			health -= damage
 			show_blood_effect()
 			update_health_bar()
-			if selected:
-				GUIHealth.text = str(health) + '/' + str(max_health)
 			if health > 0:
+				add_knockback((global_position - attack_direction).normalized(), knockback_scale)
 				if !sturdy:
 					state = HURT
 					BattlerAnimation.play("hurt")
 			else:
-				if selected:
-					GUIPortraitBackground.play('break')
 				attackArea.monitoring = false
 				state = DEAD
 				BattlerAnimation.play("death")
 	elif state != DEAD and state != BLOCK and ranged:
-		if chance < 0.20:
-			pass
+		health -= damage
+		show_blood_effect()
+		update_health_bar()
+		if health > 0:
+			add_knockback((global_position - attack_direction).normalized(), knockback_scale)
+			if !sturdy:
+				state = HURT
+				BattlerAnimation.play("hurt")
 		else:
-			health -= damage
-			show_blood_effect()
-			update_health_bar()
-			if selected:
-				GUIHealth.text = str(health) + '/' + str(max_health)
-			if health > 0:
-				if !sturdy:
-					state = HURT
-					BattlerAnimation.play("hurt")
-			else:
-				if selected:
-					GUIPortraitBackground.play('break')
-				attackArea.monitoring = false
-				state = DEAD
-				BattlerAnimation.play("death")
+			attackArea.monitoring = false
+			state = DEAD
+			BattlerAnimation.play("death")
 		
 func _on_attack_delay_timer_timeout():
 	if is_instance_valid(attack_target) and attack_target.state != DEAD and state != DEAD and state != HURT:
@@ -381,8 +365,6 @@ func avoid_obstacles():
 func reset_health():
 	health = max_health
 	update_health_bar()
-	if selected:
-		GUIHealth.text = str(health) + '/' + str(max_health)
 		
 func heal(heal_amount):
 	if health < max_health:
@@ -393,8 +375,6 @@ func heal(heal_amount):
 func update_health_bar():
 	healthBar.max_value = max_health
 	healthBar.value = health
-	if selected:
-		GUIHealth.text = str(health) + '/' + str(max_health)
 		
 func show_blood_effect():
 	var b_effect = bloodEffect.instantiate()

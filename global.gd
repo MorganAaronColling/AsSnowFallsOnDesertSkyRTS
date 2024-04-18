@@ -37,6 +37,16 @@ var rngToUnit = {
 	6 : skeleton1
 }
 
+var rngToToolTip = {
+	0 : 'ArcherV1',
+	1 : 'ArcherV3',
+	2 : 'BanditV1',
+	3 : 'BarbarianV1',
+	4 : 'KnightV1',
+	5 : 'OrcV1',
+	6 : 'SkeletonV1'
+}
+
 var rngToSpriteFrames = {
 	0 : load('res://SpriteFrames/ArcherV1SpriteFrames.tres'),
 	1 : load('res://SpriteFrames/ArcherV3SpriteFrames.tres'),
@@ -60,52 +70,74 @@ var bonusFunctions = {
 	'undead2' : apply_undead_race_bonus_v2,
 	"knight1" : apply_knight_race_bonus_v1,
 	'knight2' : apply_knight_race_bonus_v2,
-	"human1" : blank,
-	'human2' : blank,
-	"feral1" : blank,
-	'feral2' : blank,
-	"elven1" : blank,
+	"human1" : apply_human_race_bonus_v1,
+	'human2' : apply_human_race_bonus_v2,
+	"feral1" : apply_feral_race_bonus_v1,
+	'feral2' : apply_feral_race_bonus_v2,
+	"elven1" : apply_elven_race_bonus_v1,
 	'elven2' : blank,
+	"warrior1" : apply_warrior_class_bonus_v1,
+	'warrior2' : apply_warrior_class_bonus_v2,
+	"rogue1" : apply_rogue_class_bonus_v1,
+	'rogue2' : apply_rogue_class_bonus_v2,
+	"ranger1" : apply_ranger_class_bonus_v1,
+	'ranger2' : apply_ranger_class_bonus_v2,
+	"protector1" : apply_protector_class_bonus_v1,
+	'protector2' : apply_protector_class_bonus_v2,
 	
 }
 var unitPool = []
 var allUnits = []
 var star_level = 1
+var gems = 7
 
 var healthMultiplier = 1
 var attackDamageMultiplier = 1
 var animationSpeedMultiplier = 1
+var attackSpeedMultiplier = 1
 var sturdyAllMultiplier = false
 var sturdyKnightMultiplier = false
+var arrowBurstElvenMultiplier = false
+var lifestealFeralMultiplier = false
+var lifestealAllMultiplier = false
 
 func _ready():
 	for unit in unitStats.data:
 		allUnits.append(unit)
 		if unitStats.data[unit].star_rank == 1:
 			unitPool.append(unit)
-	print(allUnits)
-	print(unitPool)
-		
 	
-func check_race_bonus():
+func check_race_and_class_bonus():
 	reset_multipliers()
 	var teamRaceList = []
+	var teamClassList = []
 	for unit in unitListPlayer:
 		teamRaceList.append(unit.race)
+		teamClassList.append(unit.unit_class)
 	for race in raceList:
 		var raceCount = teamRaceList.count(race)
 		if raceCount >= 2:
 			bonusFunctions[race + '1'].call()
 		if raceCount >= 4:
 			bonusFunctions[race + '2'].call()
+	for unit_class in classList:
+		var classCount = teamClassList.count(unit_class)
+		if classCount >= 2:
+			bonusFunctions[unit_class + '1'].call()
+		if classCount >= 4:
+			bonusFunctions[unit_class + '2'].call()
 	apply_bonuses_to_units()
 				
 func reset_multipliers():
 	activeBonuses = []
 	healthMultiplier = 1
 	attackDamageMultiplier = 1
+	attackSpeedMultiplier = 1
+	lifestealAllMultiplier = false
+	lifestealFeralMultiplier = false
 	sturdyAllMultiplier = false
 	sturdyKnightMultiplier = false
+	arrowBurstElvenMultiplier = false
 			
 func apply_orc_race_bonus_v1():
 	activeBonuses.append('Orc1')
@@ -117,7 +149,7 @@ func apply_orc_race_bonus_v2():
 	
 func apply_undead_race_bonus_v1():
 	activeBonuses.append('Undead1')
-	attackDamageMultiplier *= 1.25
+	attackDamageMultiplier *= 1.10
 	
 func apply_undead_race_bonus_v2():
 	activeBonuses.append('Undead2')
@@ -129,7 +161,53 @@ func apply_knight_race_bonus_v1():
 	
 func apply_knight_race_bonus_v2():
 	activeBonuses.append('Knight2')
-	sturdyAllMultiplier = true
+	attackSpeedMultiplier *= 1.25
+	
+func apply_human_race_bonus_v1():
+	activeBonuses.append('Human1')
+	attackSpeedMultiplier *= 1.05
+	
+func apply_human_race_bonus_v2():
+	activeBonuses.append('Human2')
+	attackSpeedMultiplier *= 1.10
+	
+func apply_feral_race_bonus_v1():
+	activeBonuses.append('Feral1')
+	lifestealFeralMultiplier = true
+	
+func apply_feral_race_bonus_v2():
+	activeBonuses.append('Feral2')
+	lifestealAllMultiplier = true
+	
+func apply_elven_race_bonus_v1():
+	activeBonuses.append('Elven1')
+	arrowBurstElvenMultiplier = true
+	
+func apply_protector_class_bonus_v1():
+	activeBonuses.append('Protector1')
+	
+func apply_protector_class_bonus_v2():
+	activeBonuses.append('Protector2')
+	
+func apply_rogue_class_bonus_v1():
+	activeBonuses.append('Rogue1')
+	
+func apply_rogue_class_bonus_v2():
+	activeBonuses.append('Rogue2')
+	
+func apply_ranger_class_bonus_v1():
+	activeBonuses.append('Ranger1')
+	
+func apply_ranger_class_bonus_v2():
+	activeBonuses.append('Ranger2')
+	
+func apply_warrior_class_bonus_v1():
+	activeBonuses.append('Warrior1')
+	
+func apply_warrior_class_bonus_v2():
+	activeBonuses.append('Warrior2')
+	
+	
 	
 func blank():
 	pass
@@ -146,4 +224,12 @@ func apply_bonuses_to_units():
 			unit.sturdy = true
 		else:
 			unit.sturdy = data.sturdy
+		if lifestealAllMultiplier or (unit.race == 'feral' and lifestealFeralMultiplier):
+			unit.lifesteal = true
+		else:
+			unit.lifesteal = data.lifesteal
+		if arrowBurstElvenMultiplier and unit.race == 'elven':
+			unit.arrowBurst = true
+		else:
+			unit.arrowBurst = data.arrowBurst
 	

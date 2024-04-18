@@ -19,7 +19,7 @@ func _physics_process(delta):
 func _on_area_entered(area):
 	var parent = area.get_parent()
 	if area.is_in_group('Unit') and parent != self and parent.tribe != tribe and parent == attack_target:
-		parent.take_damage(damage, true)
+		parent.take_damage(damage, true, global_position, 0.05)
 		queue_free()
 
 func _on_despawn_timeout():
