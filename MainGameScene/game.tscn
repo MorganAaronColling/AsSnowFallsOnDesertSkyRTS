@@ -1,8 +1,9 @@
-[gd_scene load_steps=40 format=3 uid="uid://cfv10u1jup6ra"]
+[gd_scene load_steps=42 format=3 uid="uid://cfv10u1jup6ra"]
 
 [ext_resource type="Script" path="res://Scripts/game.gd" id="1_r2xw5"]
-[ext_resource type="Texture2D" uid="uid://5yffkq8ji0yx" path="res://Gem_6.png" id="3_1xke7"]
+[ext_resource type="Texture2D" uid="uid://5yffkq8ji0yx" path="res://GUI/Gem_6.png" id="3_1xke7"]
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="4_ikipi"]
+[ext_resource type="Texture2D" uid="uid://boc3paqnicy2h" path="res://GUI/Gui_8.png" id="5_t8vhj"]
 [ext_resource type="PackedScene" uid="uid://dffe73vgwoeb2" path="res://Prefabs/option.tscn" id="5_uiqwd"]
 [ext_resource type="Texture2D" uid="uid://cvmg0y5fhifc8" path="res://GUI/Pause.png" id="14_ocq0t"]
 [ext_resource type="Texture2D" uid="uid://5qbkpgqhq6nk" path="res://GUI/Chevron-Arrow-Right.png" id="15_2wmrp"]
@@ -31,6 +32,8 @@
 [ext_resource type="Texture2D" uid="uid://c5dfr402qo82r" path="res://BonusIcons/ROGUE2Bonus.png" id="37_piohc"]
 [ext_resource type="Texture2D" uid="uid://c03v475kt8m0" path="res://BonusIcons/WARRIOR1Bonus.png" id="38_v1nk7"]
 [ext_resource type="Texture2D" uid="uid://0s2jhsmp473a" path="res://BonusIcons/WARRIOR2Bonus.png" id="39_hpsaa"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_af2ip"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2lrfm"]
 texture = ExtResource("24_i1j22")
@@ -1727,6 +1730,19 @@ option = ExtResource("5_uiqwd")
 [node name="GUI" type="CanvasLayer" parent="."]
 process_mode = 3
 
+[node name="UIBackground" type="Control" parent="GUI"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="UIBackgroundColour" type="TextureRect" parent="GUI/UIBackground"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+layout_mode = 0
+offset_left = 465.0
+offset_top = 555.0
+offset_right = 820.0
+offset_bottom = 715.0
+texture = SubResource("CanvasTexture_af2ip")
+
 [node name="GemControlNode" type="Control" parent="GUI"]
 layout_mode = 3
 anchors_preset = 0
@@ -1734,21 +1750,51 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="GemSprite" type="Sprite2D" parent="GUI/GemControlNode"]
-position = Vector2(1112.9, 657.65)
-scale = Vector2(10, 10)
+position = Vector2(784, 545)
+scale = Vector2(1.2, 1.2)
 texture = ExtResource("3_1xke7")
 
 [node name="GemCounter" type="Label" parent="GUI/GemControlNode"]
-offset_left = 1073.0
-offset_top = 640.0
-offset_right = 1153.0
-offset_bottom = 679.0
+layout_mode = 0
+offset_left = 744.0
+offset_top = 538.0
+offset_right = 825.0
+offset_bottom = 577.0
+scale = Vector2(0.4, 0.4)
 theme = ExtResource("24_3ghek")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 32
 text = "999"
-horizontal_alignment = 1
+horizontal_alignment = 2
+
+[node name="StarControlNode" type="Control" parent="GUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StarLevelSprite" type="TextureRect" parent="GUI/StarControlNode"]
+layout_mode = 0
+offset_left = 804.0
+offset_top = 538.0
+offset_right = 820.0
+offset_bottom = 554.0
+texture = ExtResource("5_t8vhj")
+
+[node name="StarCounter" type="Label" parent="GUI/StarControlNode"]
+layout_mode = 0
+offset_left = 793.0
+offset_top = 538.0
+offset_right = 820.0
+offset_bottom = 577.0
+scale = Vector2(0.4, 0.4)
+theme = ExtResource("24_3ghek")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 32
+text = "6"
+horizontal_alignment = 2
 
 [node name="UpgradeControlNode" type="Control" parent="GUI"]
 layout_mode = 3
@@ -1764,24 +1810,25 @@ grow_vertical = 2
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-scale = Vector2(5, 5)
+scale = Vector2(3, 3)
 
 [node name="UpgradeSelections" type="HBoxContainer" parent="GUI/UpgradeControlNode/ScaleNode"]
 layout_mode = 0
 offset_left = -128.0
-offset_top = 26.6
+offset_top = 67.2667
 offset_right = 128.0
-offset_bottom = 75.6
+offset_bottom = 116.267
 theme_override_constants/separation = 8
 alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="UpgradeUnitPool" type="Button" parent="GUI"]
-offset_left = 1176.0
+offset_left = 1123.0
 offset_top = 630.0
 offset_right = 1277.0
 offset_bottom = 658.0
 theme = ExtResource("24_3ghek")
-text = "Upgrade"
+text = "Upgrade(11)"
 
 [node name="RefreshShop" type="Button" parent="GUI"]
 offset_left = 1177.0
@@ -2005,6 +2052,7 @@ position_smoothing_enabled = true
 script = ExtResource("4_ikipi")
 
 [node name="WorldBoundaryNorth" type="StaticBody2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaryNorth"]
 position = Vector2(637.5, 0)
@@ -2012,13 +2060,16 @@ shape = SubResource("RectangleShape2D_c13lo")
 
 [node name="WorldBoundarySouth" type="StaticBody2D" parent="."]
 position = Vector2(0, 44)
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundarySouth"]
 position = Vector2(640, 528)
 shape = SubResource("RectangleShape2D_c13lo")
+metadata/_edit_lock_ = true
 
 [node name="WorldBoundaryEast" type="StaticBody2D" parent="."]
 position = Vector2(1214, 53)
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaryEast"]
 position = Vector2(-387, 310)
@@ -2027,12 +2078,14 @@ shape = SubResource("RectangleShape2D_bnf87")
 
 [node name="WorldBoundaryWest" type="StaticBody2D" parent="."]
 position = Vector2(0, 44)
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaryWest"]
 position = Vector2(-1.35942e-05, 311)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_bnf87")
 
+[connection signal="pressed" from="GUI/UpgradeUnitPool" to="." method="_on_upgrade_unit_pool_pressed"]
 [connection signal="pressed" from="GUI/RefreshShop" to="." method="_on_refresh_shop_pressed"]
 [connection signal="toggled" from="GUI/PlayPause" to="." method="_on_play_pause_toggled"]
 [connection signal="toggled" from="GUI/Speed" to="." method="_on_speed_toggled"]

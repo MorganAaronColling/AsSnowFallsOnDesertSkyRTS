@@ -7,6 +7,9 @@ extends Node2D
 @onready var upgradeSelectionControl = $GUI/UpgradeControlNode
 @onready var upgradeSelections = $GUI/UpgradeControlNode/ScaleNode/UpgradeSelections
 @onready var activeBonusContainer = $GUI/ActiveBonusContainer
+@onready var starLevelCounter = $GUI/StarControlNode/StarCounter
+@onready var gemCounter = $GUI/GemControlNode/GemCounter
+@onready var upgradeStarButton = $GUI/UpgradeUnitPool
 
 var levels = preload('res://Resources/roundData.tres')
 
@@ -33,9 +36,14 @@ func _ready():
 		unit.set_selected(false)
 		unit.attack_target = unit.get_enemy_target(unitList)
 	update_gem_counter()
+	update_star_counter()
+	update_star_upgrade_cost()
 		
 func update_gem_counter():
-	$GUI/GemControlNode/GemCounter.text = str(Global.gems)
+	gemCounter.text = str(Global.gems)
+
+func update_star_counter():
+	starLevelCounter.text = str(Global.star_level)
 			
 func update_dragged(unit, isDragged):
 	if draggedUnit == unit and !isDragged:
@@ -159,9 +167,14 @@ func update_upgrade_menu_on_select(option_selected):
 	var o = option.instantiate()
 	upgradeSelections.add_child(o, true)
 	
+func get_spawn_position():
+	var spawn_position = $Camera2D.global_position
+	return spawn_position
+	
 func spawn_ally(ally):
+	var spawn_position = get_spawn_position()
 	var new_ally = ally.instantiate()
-	new_ally.global_position = Vector2(375, 250)
+	new_ally.global_position = spawn_position
 	new_ally.starter_unit = false
 	unitListNode.add_child(new_ally, true)
 	
@@ -171,9 +184,20 @@ func update_bonus_gui():
 			bonus.visible = true
 		else:
 			bonus.visible = false
+			
+func update_star_upgrade_cost():
+	upgradeStarButton.text = 'Upgrade(' + str(6 + Global.star_level) + ')'
 	
 func _on_refresh_shop_pressed():
-	if (Global.gems >= 1 and !unitList[0].is_empty()) or Global.gems >= 4:
+	if Global.gems >= 1:
 		Global.gems -= 1
 		update_gem_counter()
 		refresh_upgrade_menu()
+
+func _on_upgrade_unit_pool_pressed():
+	if Global.gems >= 6 + Global.star_level and Global.star_level < 4:
+		Global.gems -= 6 + Global.star_level
+		Global.star_level += 1
+		update_gem_counter()
+		update_star_counter()
+		update_star_upgrade_cost()

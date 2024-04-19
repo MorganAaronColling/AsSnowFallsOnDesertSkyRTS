@@ -10,6 +10,8 @@ var rngToUnit = Global.rngToUnit
 var rngToSpriteFrames = Global.rngToSpriteFrames
 var rngToToolTip = Global.rngToToolTip
 
+var cost: int
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	unitRNG = randi_range(0, Global.unitPool.size() - 1)
@@ -22,6 +24,7 @@ func _ready():
 	var lifesteal = "\nLifesteal" if unitData[rngToToolTip[unitRNG]].lifesteal else ""
 	var sturdy = "\nSturdy" if unitData[rngToToolTip[unitRNG]].sturdy else ""
 	var ranged = "\nRanged" if unitData[rngToToolTip[unitRNG]].ranged else ""
+	cost = unitData[rngToToolTip[unitRNG]].star_rank + 2
 	$RaceClass.text = unitData[rngToToolTip[unitRNG]].race + '\n' + unitData[rngToToolTip[unitRNG]].class
 	tooltip_text = "Health: " + str(unitData[rngToToolTip[unitRNG]].max_health) + "\nAttack Damage: " + str(unitData[rngToToolTip[unitRNG]].attack_damage) + "\nAttack Speed: " + str(unitData[rngToToolTip[unitRNG]].attack_speed) + "\nAbilities:" + cleaved + sturdy + lifesteal + ranged
 	 
@@ -30,8 +33,8 @@ func _process(delta):
 	pass
 
 func _on_pressed():
-	if Global.gems >= 3 and !Game.started:
-		Global.gems -= 3
+	if Global.gems >= cost and !Game.started:
+		Global.gems -= cost
 		Game.update_gem_counter()
 		Game.spawn_ally(unit)
 		Game.update_upgrade_menu_on_select(self)
