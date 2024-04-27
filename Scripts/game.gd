@@ -62,6 +62,7 @@ func _on_all_units_child_entered_tree(node):
 		unitList[1].append(node)
 	elif node.tribe == 'Player':
 		unitList[0].append(node)
+		check_unit_rank_upgrades(node)
 	
 func _on_all_units_child_exiting_tree(node):
 	if node.tribe == 'AI':
@@ -74,6 +75,22 @@ func _on_all_units_child_exiting_tree(node):
 	if unitList[0].is_empty():
 			await get_tree().create_timer(0.5).timeout
 			end_game()
+	
+func check_unit_rank_upgrades(new_unit):
+	var unitListNames = []
+	for other_unit in unitListNode.get_children():
+		if other_unit.name.split('-', true)[0] == new_unit.name.split('-', true)[0] and other_unit.tribe == 'Player':
+			var unit_and_rank = [other_unit.name.split('-', true)[0], other_unit.unit_rank]
+			unitListNames.append(unit_and_rank)
+	if unitListNames.count([new_unit.name.split('-', true)[0], new_unit.unit_rank]) == 3 and new_unit.unit_rank < 3:
+		new_unit.update_unit_rank()
+		var count_removed = 0
+		for other_unit in unitListNode.get_children():
+			if other_unit.name.split('-', true)[0] == new_unit.name.split('-', true)[0] and other_unit.unit_rank == new_unit.unit_rank - 1 and count_removed < 2 and other_unit.tribe == 'Player':
+				other_unit.queue_free()
+				count_removed += 1
+		check_unit_rank_upgrades(new_unit)
+		
 			
 func update_bonuses():
 	Global.unitListPlayer = unitList[0]
@@ -193,6 +210,12 @@ func _on_refresh_shop_pressed():
 		Global.gems -= 1
 		update_gem_counter()
 		refresh_upgrade_menu()
+		
+func update_unit_pool():
+	for unit in Global.unitStats.data:
+		if Global.unitStats.data[unit].star_rank == Global.star_level:
+			Global.unitPool.append(unit)
+	print(Global.unitPool)
 
 func _on_upgrade_unit_pool_pressed():
 	if Global.gems >= 6 + Global.star_level and Global.star_level < 4:
@@ -201,3 +224,6 @@ func _on_upgrade_unit_pool_pressed():
 		update_gem_counter()
 		update_star_counter()
 		update_star_upgrade_cost()
+		update_unit_pool()
+	if Global.star_level == 4:
+		upgradeStarButton.visible = false

@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dqcj4ictk1hrv"]
+[gd_scene load_steps=10 format=3 uid="uid://dqcj4ictk1hrv"]
 
 [ext_resource type="Script" path="res://Scripts/BattlerClassRanged.gd" id="1_va5v2"]
 [ext_resource type="PackedScene" uid="uid://c75kwck4y5dx7" path="res://Prefabs/arrow.tscn" id="2_n8aq4"]
 [ext_resource type="PackedScene" uid="uid://dxf5na44dsstl" path="res://Prefabs/health_bar_control.tscn" id="4_iotbd"]
 [ext_resource type="SpriteFrames" uid="uid://db0oa8c0yq6e3" path="res://SpriteFrames/ArcherV3SpriteFrames.tres" id="4_nya8v"]
+[ext_resource type="PackedScene" uid="uid://dlp5fd4nm7pg1" path="res://Prefabs/star_level.tscn" id="5_m3oqe"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rhkgv"]
 radius = 120.0
@@ -93,6 +94,10 @@ target_position = Vector2(0, 0)
 [node name="HealthBarControl" parent="." instance=ExtResource("4_iotbd")]
 offset_top = -31.0
 offset_bottom = 8.99999
+
+[node name="StarLevel" parent="." instance=ExtResource("5_m3oqe")]
+offset_top = -20.0
+offset_bottom = 16.0
 
 [connection signal="area_entered" from="UnitPivot/AttackArea" to="." method="_on_attack_area_area_entered"]
 [connection signal="animation_changed" from="UnitPivot/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]

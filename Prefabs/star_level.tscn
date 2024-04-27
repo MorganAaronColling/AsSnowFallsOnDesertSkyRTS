@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlp5fd4nm7pg1"]
+
+[ext_resource type="Texture2D" uid="uid://bq0c2mbkt8c6c" path="res://GUI/StarLevelProgress.png" id="1_o0q03"]
+
+[node name="StarLevel" type="TextureProgressBar"]
+offset_left = 7.0
+offset_top = -21.0
+offset_right = 107.0
+offset_bottom = 15.0
+scale = Vector2(0.175, 0.175)
+max_value = 3.0
+value = 1.0
+rounded = true
+nine_patch_stretch = true
+texture_progress = ExtResource("1_o0q03")

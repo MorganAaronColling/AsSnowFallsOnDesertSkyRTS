@@ -1733,6 +1733,8 @@ process_mode = 3
 [node name="UIBackground" type="Control" parent="GUI"]
 layout_mode = 3
 anchors_preset = 0
+offset_left = -459.0
+offset_right = -459.0
 
 [node name="UIBackgroundColour" type="TextureRect" parent="GUI/UIBackground"]
 modulate = Color(0.254902, 0.254902, 0.254902, 1)
@@ -1746,7 +1748,8 @@ texture = SubResource("CanvasTexture_af2ip")
 [node name="GemControlNode" type="Control" parent="GUI"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
+offset_left = -459.0
+offset_right = -419.0
 offset_bottom = 40.0
 
 [node name="GemSprite" type="Sprite2D" parent="GUI/GemControlNode"]
@@ -1771,7 +1774,8 @@ horizontal_alignment = 2
 [node name="StarControlNode" type="Control" parent="GUI"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
+offset_left = -459.0
+offset_right = -419.0
 offset_bottom = 40.0
 
 [node name="StarLevelSprite" type="TextureRect" parent="GUI/StarControlNode"]
@@ -1803,24 +1807,23 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -457.0
+offset_right = -457.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ScaleNode" type="Control" parent="GUI/UpgradeControlNode"]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 scale = Vector2(3, 3)
 
 [node name="UpgradeSelections" type="HBoxContainer" parent="GUI/UpgradeControlNode/ScaleNode"]
 layout_mode = 0
-offset_left = -128.0
-offset_top = 67.2667
-offset_right = 128.0
-offset_bottom = 116.267
+offset_left = -59.0
+offset_top = 67.0
+offset_right = 59.0
+offset_bottom = 116.0
 theme_override_constants/separation = 8
 alignment = 1
-metadata/_edit_lock_ = true
 
 [node name="UpgradeUnitPool" type="Button" parent="GUI"]
 offset_left = 1123.0
@@ -2024,6 +2027,7 @@ randomness = 0.7
 visibility_rect = Rect2(-500, -100, 1000, 1000)
 
 [node name="StormBackgroundOverlay" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.67451)
 top_level = true
 offset_left = -93.0
 offset_top = -98.0

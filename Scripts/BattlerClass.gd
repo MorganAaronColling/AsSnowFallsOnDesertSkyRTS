@@ -15,6 +15,7 @@ var bloodEffect = preload("res://Prefabs/blood_effect.tscn")
 @onready var attackDelayTimer = $AttackDelayTimer
 @onready var healthBar = $HealthBarControl/HealthBar
 @onready var Game = get_node('../../')
+#@onready var unitRankProgress = $StarLevel
 
 # Stats
 var drag_acceleration: int = 1000
@@ -31,6 +32,7 @@ var health
 var race
 var unit_class
 var attack_speed
+var unit_rank = 1
 
 # Misc
 @export var tribe: String
@@ -44,6 +46,7 @@ var dragged: bool = false
 var attacked: bool = false
 var starter_unit: bool = true
 var standard_attack_fps = 8
+var circle_direction = randi_range(0, 1)
 
 # Abilities
 var cleave: bool = false
@@ -68,6 +71,10 @@ enum {
 # STATE
 var state = IDLE
 
+func update_unit_rank():
+	unit_rank += 1
+	$StarLevel.value = unit_rank
+	
 func update_stats():
 	var data = unitStats.data[name.split('-', true)[0]]
 	# BASE STATS
@@ -359,7 +366,7 @@ func avoid_obstacles():
 		# Check for collision
 		if rayCast.is_colliding():
 			# Obstacle detected, adjust velocity to avoid
-			velocity = (velocity + Vector2.from_angle(angle).orthogonal()).normalized() * velocity.length()
+			velocity = (velocity + Vector2.from_angle(angle).orthogonal()).normalized() * velocity.length() * cos(circle_direction * PI)
 			break  # Only consider closest obstacle
 			
 func reset_health():

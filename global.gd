@@ -34,7 +34,23 @@ var rngToUnit = {
 	3 : barbarian1,
 	4 : knight1,
 	5 : orc1,
-	6 : skeleton1
+	6 : skeleton1,
+	7 : archer2, 
+	8 : bandit2, 
+	9 : barbarian2, 
+	10 : knight2, 
+	11 : orc2, 
+	12 : skeleton2,
+	13 : archer4,
+	14 : archer5, 
+	15 : barbarian3, 
+	16 : knight3, 
+	17 : orc3, 
+	18 : skeleton3,
+	19 : barbarian4,
+	20 : knight4,
+	21 : orc4, 
+	22 : skeleton4
 }
 
 var rngToToolTip = {
@@ -44,7 +60,23 @@ var rngToToolTip = {
 	3 : 'BarbarianV1',
 	4 : 'KnightV1',
 	5 : 'OrcV1',
-	6 : 'SkeletonV1'
+	6 : 'SkeletonV1',
+	7 : "ArcherV2", 
+	8 : "BanditV2", 
+	9 : "BarbarianV2", 
+	10 : "KnightV2", 
+	11 : "OrcV2", 
+	12 : "SkeletonV2",
+	13 : "ArcherV4", 
+	14 : "ArcherV5", 
+	15 : "BarbarianV3", 
+	16 : "KnightV3", 
+	17 : "OrcV3", 
+	18 : "SkeletonV3",
+	19 : "BarbarianV4", 
+	20 : "KnightV4",
+	21 : "OrcV4", 
+	22 : "SkeletonV4"
 }
 
 var rngToSpriteFrames = {
@@ -54,7 +86,23 @@ var rngToSpriteFrames = {
 	3 : load('res://SpriteFrames/BarbarianV1SpriteFrames.tres'),
 	4 : load('res://SpriteFrames/KnightV1SpriteFrames.tres'),
 	5 : load('res://SpriteFrames/OrcV1SpriteFrames.tres'),
-	6 : load('res://SpriteFrames/SkeletonV1SpriteFrames.tres')
+	6 : load('res://SpriteFrames/SkeletonV1SpriteFrames.tres'),
+	7 : load('res://SpriteFrames/ArcherV2SpriteFrames.tres'),
+	8 : load('res://SpriteFrames/BanditV2SpriteFrames.tres'),
+	9 : load('res://SpriteFrames/BarbarianV2SpriteFrames.tres'),
+	10 : load('res://SpriteFrames/KnightV2SpriteFrames.tres'),
+	11 : load('res://SpriteFrames/OrcV2SpriteFrames.tres'),
+	12 : load('res://SpriteFrames/SkeletonV2SpriteFrames.tres'),
+	13 : load('res://SpriteFrames/ArcherV4SpriteFrames.tres'),
+	14 : load('res://SpriteFrames/ArcherV5SpriteFrames.tres'),
+	15 : load('res://SpriteFrames/BarbarianV3SpriteFrames.tres'),
+	16 : load('res://SpriteFrames/KnightV3SpriteFrames.tres'),
+	17 : load('res://SpriteFrames/OrcV3SpriteFrames.tres'),
+	18 : load('res://SpriteFrames/SkeletonV3SpriteFrames.tres'),
+	19 : load('res://SpriteFrames/BarbarianV4SpriteFrames.tres'),
+	20 : load('res://SpriteFrames/KnightV4SpriteFrames.tres'),
+	21 : load('res://SpriteFrames/OrcV4SpriteFrames.tres'),
+	22 : load('res://SpriteFrames/SkeletonV4SpriteFrames.tres')
 }
 
 var draggedUnit
@@ -89,7 +137,7 @@ var bonusFunctions = {
 var unitPool = []
 var allUnits = []
 var star_level = 1
-var gems = 7
+var gems = 100
 
 var healthMultiplier = 1
 var attackDamageMultiplier = 1
@@ -100,6 +148,7 @@ var sturdyKnightMultiplier = false
 var arrowBurstElvenMultiplier = false
 var lifestealFeralMultiplier = false
 var lifestealAllMultiplier = false
+
 
 func _ready():
 	for unit in unitStats.data:
@@ -207,19 +256,30 @@ func apply_warrior_class_bonus_v1():
 func apply_warrior_class_bonus_v2():
 	activeBonuses.append('Warrior2')
 	
-	
-	
 func blank():
 	pass
+	
+func get_unit_star_rank_multiplier(unit):
+	var star_rank_multiplier = 1
+	if unit.unit_rank == 1:
+		star_rank_multiplier = 1.05
+	elif unit.unit_rank == 2:
+		star_rank_multiplier = 1.10
+	elif unit.unit_rank == 3:
+		star_rank_multiplier = 1.15
+	return star_rank_multiplier
 	
 func apply_bonuses_to_units():
 	print(activeBonuses)
 	for unit in unitListPlayer:
 		var data = unit.unitStats.data[unit.name.split('-', true)[0]]
-		unit.max_health = data.max_health * healthMultiplier
+		var star_rank_multiplier = get_unit_star_rank_multiplier(unit)
+		unit.max_health = data.max_health * healthMultiplier * star_rank_multiplier
 		unit.health = unit.max_health
-		unit.attack_damage = data.attack_damage * attackDamageMultiplier
+		unit.attack_damage = data.attack_damage * attackDamageMultiplier * star_rank_multiplier
 		unit.update_health_bar()
+		unit.attack_speed = data.attack_speed * attackSpeedMultiplier * star_rank_multiplier
+		unit.BattlerAnimation.sprite_frames.set_animation_speed('attack', unit.attack_speed * unit.standard_attack_fps)
 		if sturdyAllMultiplier or (unit.race == 'knight' and sturdyKnightMultiplier):
 			unit.sturdy = true
 		else:
